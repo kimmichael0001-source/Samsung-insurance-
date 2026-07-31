@@ -429,9 +429,16 @@ p { margin: 0; }
 /* ============================================
    Packages
 ============================================ */
+.package-group-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--blue);
+  margin: 0 0 24px;
+}
+.package-group-title-spaced { margin-top: 56px; }
 .package-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 32px;
 }
 .package-card {
@@ -457,6 +464,7 @@ p { margin: 0; }
   border-radius: 999px;
 }
 .badge-alt { background: var(--gold); color: var(--ink); }
+.badge-health { background: #1e9e6f; }
 .package-body { padding: 34px; }
 .package-body h3 { font-size: 22px; line-height: 1.4; margin-bottom: 10px; }
 .package-body h3 strong { color: var(--blue); }
@@ -475,6 +483,17 @@ p { margin: 0; }
   font-weight: 800;
 }
 .package-features li strong { color: var(--ink); margin-right: 4px; }
+.brochure-link {
+  display: block;
+  text-align: center;
+  margin-top: 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.brochure-link:hover { color: var(--blue-light); }
 
 /* ============================================
    Comparison table
@@ -502,6 +521,7 @@ p { margin: 0; }
   font-size: 14px;
 }
 .compare-table thead th.col-alt { background: var(--blue); }
+.compare-table thead th.col-health { background: #1e9e6f; }
 .compare-table td:first-child, .compare-table th.compare-label-col { color: var(--gray-500); font-weight: 500; width: 26%; }
 .compare-table tbody tr:hover { background: var(--gray-100); }
 .compare-table tbody tr:last-child td { border-bottom: none; }
@@ -531,6 +551,13 @@ p { margin: 0; }
 /* ============================================
    Gallery
 ============================================ */
+.gallery-group-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--blue);
+  margin: 0 0 20px;
+}
+.gallery-group-title-spaced { margin-top: 44px; }
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
