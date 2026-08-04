@@ -3,9 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  /* ---------- Header scroll state + scroll progress ---------- */
+  /* ---------- Header scroll state + scroll progress + back-to-top ---------- */
   const header = document.getElementById('siteHeader');
   const scrollProgress = document.getElementById('scrollProgress');
+  const backToTop = document.getElementById('backToTop');
   const onScroll = () => {
     if (window.scrollY > 40) header.classList.add('scrolled');
     else header.classList.remove('scrolled');
@@ -15,9 +16,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
       scrollProgress.style.width = `${Math.min(100, Math.max(0, pct))}%`;
     }
+
+    if (backToTop) backToTop.classList.toggle('show', window.scrollY > 600);
   };
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
+
+  if (backToTop) {
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   /* ---------- Mobile nav toggle ---------- */
   const hamburger = document.getElementById('hamburger');
@@ -30,12 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Mobile dropdown (Пакеты) toggle ---------- */
   const dropdownParent = document.querySelector('.nav-has-dropdown');
-  if (dropdownParent) {
-    const dropdownTrigger = dropdownParent.querySelector('.nav-link');
+  const dropdownTrigger = dropdownParent ? dropdownParent.querySelector('.nav-link') : null;
+  if (dropdownParent && dropdownTrigger) {
     dropdownTrigger.addEventListener('click', (e) => {
       if (window.innerWidth <= 860) {
         e.preventDefault();
-        dropdownParent.classList.toggle('open');
+        const isOpen = dropdownParent.classList.toggle('open');
+        dropdownTrigger.setAttribute('aria-expanded', String(isOpen));
       }
     });
   }
@@ -47,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
       hamburger.classList.remove('active');
       hamburger.setAttribute('aria-expanded', 'false');
       if (dropdownParent) dropdownParent.classList.remove('open');
+      if (dropdownTrigger) dropdownTrigger.setAttribute('aria-expanded', 'false');
     });
   });
 
@@ -65,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ---------- Active nav link on scroll ---------- */
-  const sections = document.querySelectorAll('section[id]');
+  const sections = document.querySelectorAll('main section[id]');
   const navLinks = document.querySelectorAll('.nav-link');
   const setActiveLink = () => {
     let currentId = sections[0] ? sections[0].id : '';
@@ -131,7 +142,10 @@ document.addEventListener('DOMContentLoaded', () => {
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
         const filter = tab.getAttribute('data-filter');
-        tabs.forEach(t => t.classList.toggle('active', t === tab));
+        tabs.forEach(t => {
+          t.classList.toggle('active', t === tab);
+          t.setAttribute('aria-selected', String(t === tab));
+        });
         groups.forEach(group => {
           const matches = filter === 'all' || group.getAttribute('data-group') === filter;
           group.classList.toggle('filtered-out', !matches);
@@ -149,6 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const lightboxNext = document.getElementById('lightboxNext');
   let visibleItems = [];
   let currentIndex = 0;
+  let lastFocusedTrigger = null;
 
   const getVisibleGalleryItems = () =>
     Array.from(document.querySelectorAll('.gallery-item')).filter(el => el.offsetParent !== null);
@@ -165,13 +180,18 @@ document.addEventListener('DOMContentLoaded', () => {
     visibleItems = getVisibleGalleryItems();
     currentIndex = visibleItems.indexOf(item);
     if (currentIndex < 0) currentIndex = 0;
+    lastFocusedTrigger = item;
     renderLightbox();
+    lightbox.hidden = false;
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
+    lightboxClose.focus();
   };
   const closeLightbox = () => {
     lightbox.classList.remove('active');
+    lightbox.hidden = true;
     document.body.style.overflow = '';
+    if (lastFocusedTrigger) lastFocusedTrigger.focus();
   };
   const showRelative = (delta) => {
     if (!visibleItems.length) return;
@@ -193,6 +213,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowLeft') showRelative(-1);
     if (e.key === 'ArrowRight') showRelative(1);
+    if (e.key === 'Tab') {
+      // Simple focus trap: cycle between the three lightbox controls.
+      const focusable = [lightboxClose, lightboxPrev, lightboxNext];
+      const activeIdx = focusable.indexOf(document.activeElement);
+      e.preventDefault();
+      const next = e.shiftKey
+        ? focusable[(activeIdx - 1 + focusable.length) % focusable.length]
+        : focusable[(activeIdx + 1) % focusable.length];
+      (next || lightboxClose).focus();
+    }
   });
 
   /* ---------- Contact form validation ---------- */

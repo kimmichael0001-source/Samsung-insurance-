@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kimmichael0001-source.github.io/Samsung-insurance-/sitemap.xml

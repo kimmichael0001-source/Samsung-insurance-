@@ -4,14 +4,50 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Samsung Insurance | Страхование жизни и здоровья</title>
-<meta name="description" content="Премиальные страховые продукты Samsung Insurance: страхование жизни «Лечение рака Плюс» и health-полис New Plus One. Надёжная защита для вас и вашей семьи.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%231428A0%22/><text x=%2250%22 y=%2268%22 font-size=%2258%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Arial%22>S</text></svg>">
+<meta name="description" content="Официальный обзор страховых продуктов Samsung Insurance: страхование жизни «Лечение рака Плюс» и health-полис New Plus One. Надёжная защита для вас и вашей семьи — с примерами выплат, сравнением пакетов и брошюрами.">
+<meta name="keywords" content="Samsung Insurance, страхование жизни, страхование здоровья, лечение рака плюс, New Plus One, страховой полис">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1428a0">
+<meta name="color-scheme" content="light">
+<link rel="canonical" href="https://kimmichael0001-source.github.io/Samsung-insurance-/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Samsung Insurance">
+<meta property="og:title" content="Samsung Insurance | Страхование жизни и здоровья">
+<meta property="og:description" content="Страхование жизни «Лечение рака Плюс» и health-полис New Plus One: покрытие, сравнение пакетов, брошюры и онлайн-заявка на консультацию.">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:image" content="assets/images/slide-01-concept.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Samsung Insurance | Страхование жизни и здоровья">
+<meta name="twitter:description" content="Страхование жизни «Лечение рака Плюс» и health-полис New Plus One: покрытие, сравнение пакетов, брошюры и онлайн-заявка на консультацию.">
+<meta name="twitter:image" content="assets/images/slide-01-concept.jpg">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%231428A0%22/><text x=%2250%22 y=%2268%22 font-size=%2258%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Arial%22>S</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "InsuranceAgency",
+  "name": "Samsung Insurance",
+  "description": "Страхование жизни «Лечение рака Плюс» и health-полис New Plus One — консультации и оформление.",
+  "areaServed": "RU",
+  "telephone": "+7-800-000-00-00",
+  "email": "consult@samsung-insurance.example",
+  "makesOffer": [
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Страхование жизни «Лечение рака Плюс» — Стандартный пакет" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Страхование жизни «Лечение рака Плюс» — Упрощённый пакет (3·2·5)" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Health-полис New Plus One" } }
+  ]
+}
+</script>
 </head>
 <body>
+
+<a class="skip-link" href="#main">Перейти к содержимому</a>
 
 <!-- ===== Icon sprite ===== -->
 <svg style="display:none" aria-hidden="true">
@@ -28,26 +64,27 @@
   <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="M6 9 12 15 18 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12H19M12 5 19 12 12 19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="icon-check" viewBox="0 0 24 24"><path d="M4 12.5 9.5 18 20 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="icon-up" viewBox="0 0 24 24"><path d="M6 15 12 9 18 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
 <!-- ===== Scroll progress ===== -->
-<div class="scroll-progress" id="scrollProgress"></div>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
 <!-- ===== Header ===== -->
 <header class="site-header" id="siteHeader">
   <div class="container header-inner">
-    <a href="#home" class="logo">
-      <span class="logo-mark">S</span>
+    <a href="#home" class="logo" aria-label="Samsung Insurance — на главную">
+      <span class="logo-mark" aria-hidden="true">S</span>
       <span class="logo-text">Samsung <em>Insurance</em></span>
     </a>
 
-    <nav class="main-nav" id="mainNav">
+    <nav class="main-nav" id="mainNav" aria-label="Основная навигация">
       <ul>
         <li><a href="#home" class="nav-link active">Главная</a></li>
         <li><a href="#concept" class="nav-link">О продукте</a></li>
         <li class="nav-has-dropdown">
-          <a href="#packages" class="nav-link">Пакеты <svg class="icon icon-xs"><use href="#icon-chevron"></use></svg></a>
-          <div class="nav-dropdown glass">
+          <a href="#packages" class="nav-link" aria-haspopup="true" aria-expanded="false">Пакеты <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-chevron"></use></svg></a>
+          <div class="nav-dropdown">
             <a href="#packages" data-scroll-target="pkg-standard">«Лечение рака Плюс» · Стандартный</a>
             <a href="#packages" data-scroll-target="pkg-simple">«Лечение рака Плюс» · Упрощённый</a>
             <a href="#packages" data-scroll-target="pkg-newplus">New Plus One · Health-полис</a>
@@ -62,43 +99,57 @@
 
     <a href="#contact" class="btn btn-primary btn-sm header-cta">Бесплатная консультация</a>
 
-    <button class="hamburger" id="hamburger" aria-label="Открыть меню" aria-expanded="false">
+    <button class="hamburger" id="hamburger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mainNav">
       <span></span><span></span><span></span>
     </button>
   </div>
 </header>
 
+<main id="main">
+
 <!-- ===== Hero ===== -->
-<section class="hero" id="home">
-  <div class="hero-bg">
+<section class="hero" id="home" aria-label="Приветствие">
+  <div class="hero-bg" aria-hidden="true">
     <div class="hero-orb orb-1"></div>
     <div class="hero-orb orb-2"></div>
-    <div class="hero-orb orb-3"></div>
-    <div class="hero-grid"></div>
-    <div class="hero-noise"></div>
   </div>
   <div class="container hero-inner">
-    <p class="eyebrow reveal glass">
-      <svg class="icon icon-xs"><use href="#icon-shield"></use></svg>
-      2 продукта Samsung Insurance для вас и вашей семьи
-    </p>
-    <h1 class="reveal">
-      Защита, которая<br>
-      <span class="text-gradient">растёт вместе с вами</span>
-    </h1>
-    <p class="hero-desc reveal">
-      Страхование жизни «Лечение рака Плюс» объединяет выплаты на лечение рака и страхование на случай смерти,
-      а health-полис New Plus One добавляет заботу о здоровье на каждом этапе жизни — с ростом выплат и возвратом взносов до 128%.
-    </p>
-    <div class="hero-actions reveal">
-      <a href="#packages" class="btn btn-primary btn-lg">
-        Смотреть пакеты
-        <svg class="icon icon-sm"><use href="#icon-arrow"></use></svg>
-      </a>
-      <a href="#contact" class="btn btn-ghost btn-lg">Записаться на консультацию</a>
+    <div class="hero-copy">
+      <p class="eyebrow reveal">
+        <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-shield"></use></svg>
+        2 продукта Samsung Insurance для вас и вашей семьи
+      </p>
+      <h1 class="reveal">
+        Защита, которая<br>
+        <span class="text-gradient">растёт вместе с вами</span>
+      </h1>
+      <p class="hero-desc reveal">
+        Страхование жизни «Лечение рака Плюс» объединяет выплаты на лечение рака и страхование на случай смерти,
+        а health-полис New Plus One добавляет заботу о здоровье на каждом этапе жизни — с ростом выплат и возвратом взносов до 128%.
+      </p>
+      <div class="hero-actions reveal">
+        <a href="#packages" class="btn btn-primary btn-lg">
+          Смотреть пакеты
+          <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow"></use></svg>
+        </a>
+        <a href="#contact" class="btn btn-outline btn-lg">Записаться на консультацию</a>
+      </div>
     </div>
 
-    <div class="hero-stats reveal">
+    <div class="hero-visual reveal" aria-hidden="true">
+      <div class="hero-card hero-card-1">
+        <img src="assets/images/thumb/slide-01-concept.jpg" alt="" loading="eager">
+      </div>
+      <div class="hero-card hero-card-2">
+        <img src="assets/images/thumb/newplus-01-concept.jpg" alt="" loading="eager">
+      </div>
+      <div class="hero-chip hero-chip-1"><svg class="icon icon-sm"><use href="#icon-trending"></use></svg> До 200%+α</div>
+      <div class="hero-chip hero-chip-2"><svg class="icon icon-sm"><use href="#icon-percent"></use></svg> Возврат до 128%</div>
+    </div>
+  </div>
+
+  <div class="hero-stats-bar">
+    <div class="container hero-stats">
       <div class="stat">
         <span class="stat-num" data-count="200">0</span><span class="stat-suffix">%+α</span>
         <span class="stat-label">максимальный рост суммы на случай смерти</span>
@@ -117,21 +168,18 @@
       </div>
     </div>
   </div>
-  <a href="#concept" class="scroll-cue" aria-label="Прокрутить вниз">
-    <span></span>
-  </a>
 </section>
 
 <!-- ===== Concept ===== -->
-<section class="section" id="concept">
+<section class="section" id="concept" aria-labelledby="concept-title">
   <div class="container">
     <p class="section-eyebrow reveal">КОНЦЕПЦИЯ</p>
-    <h2 class="section-title reveal">Страхование жизни нового поколения:<br>защита от рака и на случай смерти в одном полисе</h2>
+    <h2 class="section-title reveal" id="concept-title">Страхование жизни нового поколения:<br>защита от рака и на случай смерти в одном полисе</h2>
     <p class="section-desc reveal">Мы объединили главный тренд страхового рынка — выплаты на лечение рака — со страхованием на случай смерти и предусмотрели возврат до 100% взносов при полной оплате.</p>
 
     <div class="concept-grid">
       <div class="concept-card reveal">
-        <div class="concept-icon icon-cancer"><svg class="icon"><use href="#icon-cross"></use></svg></div>
+        <div class="concept-icon icon-cancer"><svg class="icon" aria-hidden="true"><use href="#icon-cross"></use></svg></div>
         <h3>Лечение рака</h3>
         <ul>
           <li>Освобождение от уплаты взносов при диагностировании рака</li>
@@ -141,7 +189,7 @@
       </div>
       <div class="concept-plus" aria-hidden="true">+</div>
       <div class="concept-card reveal">
-        <div class="concept-icon icon-death"><svg class="icon"><use href="#icon-pulse"></use></svg></div>
+        <div class="concept-icon icon-death"><svg class="icon" aria-hidden="true"><use href="#icon-pulse"></use></svg></div>
         <h3>Страхование на случай смерти</h3>
         <ul>
           <li>С 10-го по 20-й год — ежегодный рост суммы на 10% от страховой суммы</li>
@@ -151,7 +199,7 @@
       </div>
       <div class="concept-plus" aria-hidden="true">+</div>
       <div class="concept-card reveal">
-        <div class="concept-icon icon-refund"><svg class="icon"><use href="#icon-percent"></use></svg></div>
+        <div class="concept-icon icon-refund"><svg class="icon" aria-hidden="true"><use href="#icon-percent"></use></svg></div>
         <h3>Возврат 100% при полной оплате</h3>
         <ul>
           <li>После полной оплаты взносов по всем опциям — возврат до 100%</li>
@@ -164,33 +212,32 @@
 </section>
 
 <!-- ===== Selling Points ===== -->
-<section class="section section-dark" id="points">
-  <div class="hero-orb orb-points"></div>
+<section class="section section-black" id="points" aria-labelledby="points-title">
   <div class="container">
     <p class="section-eyebrow reveal">ПРЕИМУЩЕСТВА</p>
-    <h2 class="section-title reveal">4 главных преимущества Samsung Insurance</h2>
+    <h2 class="section-title reveal" id="points-title">4 главных преимущества Samsung Insurance</h2>
 
     <div class="points-grid">
       <div class="point-card reveal">
-        <div class="point-icon"><svg class="icon"><use href="#icon-trending"></use></svg></div>
+        <div class="point-icon"><svg class="icon" aria-hidden="true"><use href="#icon-trending"></use></svg></div>
         <span class="point-num">01</span>
         <h3>Рост суммы на случай смерти<br>до 200%+α</h3>
         <p>Благодаря ступенчатому увеличению выплат и услуге дополнительного роста при полной оплате сумма на случай смерти может превысить 200% от первоначальной страховой суммы.</p>
       </div>
       <div class="point-card reveal">
-        <div class="point-icon"><svg class="icon"><use href="#icon-percent"></use></svg></div>
+        <div class="point-icon"><svg class="icon" aria-hidden="true"><use href="#icon-percent"></use></svg></div>
         <span class="point-num">02</span>
         <h3>Возврат 100% взносов<br>при полной оплате</h3>
         <p>По стандартному пакету при полной оплате взносов возврат составляет 100% (по упрощённому пакету — 95%), что делает полис финансово выгодным решением.</p>
       </div>
       <div class="point-card reveal">
-        <div class="point-icon"><svg class="icon"><use href="#icon-pulse"></use></svg></div>
+        <div class="point-icon"><svg class="icon" aria-hidden="true"><use href="#icon-pulse"></use></svg></div>
         <span class="point-num">03</span>
         <h3>Выплата 1–10% на лечение<br>и рост суммы на случай смерти</h3>
         <p>При химиотерапии, лучевой терапии, операции, лечении в реанимации и гормональной терапии выплачивается компенсация, а сумма на случай смерти растёт одновременно с этим.</p>
       </div>
       <div class="point-card reveal">
-        <div class="point-icon"><svg class="icon"><use href="#icon-shield-check"></use></svg></div>
+        <div class="point-icon"><svg class="icon" aria-hidden="true"><use href="#icon-shield-check"></use></svg></div>
         <span class="point-num">04</span>
         <h3>Освобождение от взносов<br>при диагностировании рака</h3>
         <p>При подтверждённом диагнозе рака (за исключением отдельных видов — ранний рак груди, некритичный рак щитовидной железы, немеланомный рак кожи, неинвазивный рак мочевого пузыря и рак слизистой прямой кишки) дальнейшая оплата взносов не требуется.</p>
@@ -200,16 +247,16 @@
 </section>
 
 <!-- ===== Packages ===== -->
-<section class="section" id="packages">
+<section class="section" id="packages" aria-labelledby="packages-title">
   <div class="container">
     <p class="section-eyebrow reveal">ПАКЕТЫ</p>
-    <h2 class="section-title reveal">Выберите подходящий пакет</h2>
+    <h2 class="section-title reveal" id="packages-title">Выберите подходящий пакет</h2>
     <p class="section-desc reveal">Мы подготовили линейку пакетов по двум продуктам — страхованию жизни «Лечение рака Плюс» и программе здоровья New Plus One. Сравните условия и выберите вариант с учётом состояния здоровья и целей страхования.</p>
 
-    <div class="filter-tabs reveal" data-filter-for="package-group">
-      <button class="filter-tab active" data-filter="all">Все пакеты</button>
-      <button class="filter-tab" data-filter="cancer">«Лечение рака Плюс»</button>
-      <button class="filter-tab" data-filter="health">New Plus One</button>
+    <div class="filter-tabs reveal" data-filter-for="package-group" role="tablist" aria-label="Фильтр пакетов">
+      <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">Все пакеты</button>
+      <button class="filter-tab" data-filter="cancer" role="tab" aria-selected="false">«Лечение рака Плюс»</button>
+      <button class="filter-tab" data-filter="health" role="tab" aria-selected="false">New Plus One</button>
     </div>
 
     <div class="package-group" data-group="cancer">
@@ -218,42 +265,42 @@
 
         <article class="package-card reveal" id="pkg-standard">
           <div class="package-media">
-            <img src="assets/images/slide-01-concept.jpg" alt="Иллюстрация концепции полиса «Лечение рака Плюс»: выплаты на лечение рака, страхование на случай смерти и возврат 100% при полной оплате" loading="lazy">
+            <img src="assets/images/slide-01-concept.jpg" alt="Иллюстрация концепции полиса «Лечение рака Плюс»: выплаты на лечение рака, страхование на случай смерти и возврат 100% при полной оплате" loading="lazy" width="1400" height="735">
             <span class="package-badge">СТАНДАРТНЫЙ</span>
           </div>
           <div class="package-body">
             <h3>Страхование жизни «Лечение рака Плюс»<br><strong>Стандартный пакет</strong></h3>
             <p class="package-sub">Базовый пакет с расширенным покрытием при стандартном медицинском декларировании</p>
             <ul class="package-features">
-              <li><svg class="icon icon-xs"><use href="#icon-check"></use></svg><strong>Возраст оформления</strong> от 15 до 70 лет (зависит от пола и срока уплаты взносов)</li>
-              <li><svg class="icon icon-xs"><use href="#icon-check"></use></svg><strong>Доп. условия полиса</strong> 10 встроенных опций</li>
-              <li><svg class="icon icon-xs"><use href="#icon-check"></use></svg><strong>Возврат при полной оплате</strong> до 100,0% (срок уплаты 20 лет)</li>
-              <li><svg class="icon icon-xs"><use href="#icon-check"></use></svg><strong>Начальное покрытие</strong> 100% страховой суммы на случай смерти в первые 10 лет</li>
+              <li><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-check"></use></svg><strong>Возраст оформления</strong> от 15 до 70 лет (зависит от пола и срока уплаты взносов)</li>
+              <li><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-check"></use></svg><strong>Доп. условия полиса</strong> 10 встроенных опций</li>
+              <li><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-check"></use></svg><strong>Возврат при полной оплате</strong> до 100,0% (срок уплаты 20 лет)</li>
+              <li><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-check"></use></svg><strong>Начальное покрытие</strong> 100% страховой суммы на случай смерти в первые 10 лет</li>
             </ul>
             <a href="#contact" class="btn btn-outline btn-block">Консультация по стандартному пакету</a>
             <a href="assets/docs/cancer-treatment-plus-brochure.pdf" class="brochure-link" target="_blank" rel="noopener">
-              <svg class="icon icon-xs"><use href="#icon-download"></use></svg> Скачать брошюру (PDF)
+              <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-download"></use></svg> Скачать брошюру (PDF)
             </a>
           </div>
         </article>
 
         <article class="package-card reveal" id="pkg-simple">
           <div class="package-media">
-            <img src="assets/images/slide-11-selling-points-cover.jpg" alt="Иллюстрация преимуществ страхования жизни «Лечение рака Плюс» — упрощённый пакет" loading="lazy">
+            <img src="assets/images/slide-11-selling-points-cover.jpg" alt="Иллюстрация преимуществ страхования жизни «Лечение рака Плюс» — упрощённый пакет" loading="lazy" width="1400" height="736">
             <span class="package-badge badge-alt">УПРОЩЁННЫЙ</span>
           </div>
           <div class="package-body">
             <h3>Страхование жизни «Лечение рака Плюс»<br><strong>Упрощённый пакет (3·2·5)</strong></h3>
             <p class="package-sub">Упрощённое медицинское декларирование II — облегчённая проверка по трём периодам: 3 месяца, 2 года, 5 лет</p>
             <ul class="package-features">
-              <li><svg class="icon icon-xs"><use href="#icon-check"></use></svg><strong>Возраст оформления</strong> от 30 до 70 лет (зависит от пола и срока уплаты взносов)</li>
-              <li><svg class="icon icon-xs"><use href="#icon-check"></use></svg><strong>Доп. условия полиса</strong> 7 встроенных опций</li>
-              <li><svg class="icon icon-xs"><use href="#icon-check"></use></svg><strong>Возврат при полной оплате</strong> до 95,0% (срок уплаты 20 лет)</li>
-              <li><svg class="icon icon-xs"><use href="#icon-check"></use></svg><strong>Начальное покрытие</strong> 50% страховой суммы при смерти не от несчастного случая в первые 2 года</li>
+              <li><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-check"></use></svg><strong>Возраст оформления</strong> от 30 до 70 лет (зависит от пола и срока уплаты взносов)</li>
+              <li><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-check"></use></svg><strong>Доп. условия полиса</strong> 7 встроенных опций</li>
+              <li><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-check"></use></svg><strong>Возврат при полной оплате</strong> до 95,0% (срок уплаты 20 лет)</li>
+              <li><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-check"></use></svg><strong>Начальное покрытие</strong> 50% страховой суммы при смерти не от несчастного случая в первые 2 года</li>
             </ul>
             <a href="#contact" class="btn btn-outline btn-block">Консультация по упрощённому пакету</a>
             <a href="assets/docs/cancer-treatment-plus-brochure.pdf" class="brochure-link" target="_blank" rel="noopener">
-              <svg class="icon icon-xs"><use href="#icon-download"></use></svg> Скачать брошюру (PDF)
+              <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-download"></use></svg> Скачать брошюру (PDF)
             </a>
           </div>
         </article>
@@ -267,22 +314,22 @@
 
         <article class="package-card reveal" id="pkg-newplus">
           <div class="package-media">
-            <img src="assets/images/newplus-01-concept.jpg" alt="Иллюстрация концепции здоровьесберегающей программы New Plus One" loading="lazy">
+            <img src="assets/images/newplus-01-concept.jpg" alt="Иллюстрация концепции здоровьесберегающей программы New Plus One" loading="lazy" width="1190" height="1682">
             <span class="package-badge badge-health">HEALTH</span>
           </div>
           <div class="package-body">
             <h3>Health-полис «New Plus One»<br><strong>(2607, без участия в прибыли, с пониженной выкупной суммой)</strong></h3>
             <p class="package-sub">Базовое покрытие на случай болезни и смерти плюс дополнительный план, который включается именно тогда, когда защита нужнее всего — после окончания уплаты взносов</p>
             <ul class="package-features">
-              <li><svg class="icon icon-xs"><use href="#icon-check"></use></svg><strong>Доп. план после уплаты взносов</strong> на выбор: смерть / пожилой возраст (21 вид) / зубы (5 видов)</li>
-              <li><svg class="icon icon-xs"><use href="#icon-check"></use></svg><strong>Растущее покрытие</strong> — 3 вида диагностики и 3 вида лечения (онко/инсульт/инфаркт) с ростом суммы до 200% после уплаты взносов</li>
-              <li><svg class="icon icon-xs"><use href="#icon-check"></use></svg><strong>Уход и деменция</strong> — единовременная выплата при лёгкой стадии и ежегодная рента при тяжёлой стадии (до 15 лет)</li>
-              <li><svg class="icon icon-xs"><use href="#icon-check"></use></svg><strong>Возврат взносов (пример)<sup>4</sup></strong> 116,8% на 20-й год · 128,1% на 40-й год</li>
-              <li><svg class="icon icon-xs"><use href="#icon-check"></use></svg><strong>Скидка для семьи</strong> 5% при оформлении полиса на 2 и более членов семьи</li>
+              <li><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-check"></use></svg><strong>Доп. план после уплаты взносов</strong> на выбор: смерть / пожилой возраст (21 вид) / зубы (5 видов)</li>
+              <li><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-check"></use></svg><strong>Растущее покрытие</strong> — 3 вида диагностики и 3 вида лечения (онко/инсульт/инфаркт) с ростом суммы до 200% после уплаты взносов</li>
+              <li><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-check"></use></svg><strong>Уход и деменция</strong> — единовременная выплата при лёгкой стадии и ежегодная рента при тяжёлой стадии (до 15 лет)</li>
+              <li><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-check"></use></svg><strong>Возврат взносов (пример)<sup>4</sup></strong> 116,8% на 20-й год · 128,1% на 40-й год</li>
+              <li><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-check"></use></svg><strong>Скидка для семьи</strong> 5% при оформлении полиса на 2 и более членов семьи</li>
             </ul>
             <a href="#contact" class="btn btn-outline btn-block">Консультация по программе New Plus One</a>
             <a href="assets/docs/samsung-newplus-one-brochure.pdf" class="brochure-link" target="_blank" rel="noopener">
-              <svg class="icon icon-xs"><use href="#icon-download"></use></svg> Скачать полную брошюру (PDF)
+              <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-download"></use></svg> Скачать полную брошюру (PDF)
             </a>
           </div>
         </article>
@@ -293,87 +340,88 @@
 </section>
 
 <!-- ===== Comparison ===== -->
-<section class="section section-tint" id="compare">
+<section class="section section-tint" id="compare" aria-labelledby="compare-title">
   <div class="container">
     <p class="section-eyebrow reveal">СРАВНЕНИЕ</p>
-    <h2 class="section-title reveal">Сравнение пакетов</h2>
+    <h2 class="section-title reveal" id="compare-title">Сравнение пакетов</h2>
     <p class="section-desc reveal">Ключевые различия между стандартным пакетом, упрощённым пакетом и программой здоровья New Plus One — в одной таблице.</p>
 
     <div class="compare-wrap reveal">
       <table class="compare-table">
+        <caption class="sr-only">Сравнение параметров стандартного, упрощённого пакетов «Лечение рака Плюс» и программы New Plus One</caption>
         <thead>
           <tr>
-            <th class="compare-label-col">Параметр</th>
-            <th>Стандартный пакет</th>
-            <th class="col-alt">Упрощённый пакет (3·2·5)</th>
-            <th class="col-health">New Plus One</th>
+            <th class="compare-label-col" scope="col">Параметр</th>
+            <th scope="col">Стандартный пакет</th>
+            <th class="col-alt" scope="col">Упрощённый пакет (3·2·5)</th>
+            <th class="col-health" scope="col">New Plus One</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Тип продукта</td>
+            <th scope="row">Тип продукта</th>
             <td>Страхование жизни: лечение рака + смерть</td>
             <td>Страхование жизни: лечение рака + смерть (упрощённо)</td>
             <td>Health-полис: диагностика и лечение + уход + смерть</td>
           </tr>
           <tr>
-            <td>Способ декларирования</td>
+            <th scope="row">Способ декларирования</th>
             <td>Полное заполнение стандартной анкеты о состоянии здоровья</td>
             <td>Упрощённая проверка только по ключевым пунктам за 3&nbsp;мес. / 2&nbsp;года / 5&nbsp;лет</td>
             <td>На выбор — от упрощённого (3·5·5) до полного 10-летнего декларирования</td>
           </tr>
           <tr>
-            <td>Возраст оформления</td>
+            <th scope="row">Возраст оформления</th>
             <td>15–70 лет<sup>1</sup></td>
             <td>30–70 лет<sup>1</sup></td>
             <td>Индивидуально, по выбранному плану<sup>3</sup></td>
           </tr>
           <tr>
-            <td>Доп. условия / доп. план полиса</td>
+            <th scope="row">Доп. условия / доп. план полиса</th>
             <td>10 видов</td>
             <td>7 видов</td>
             <td>3 варианта доп. плана на выбор: смерть / пожилой возраст (21 вид) / зубы (5 видов)</td>
           </tr>
           <tr>
-            <td>Начальная выплата на случай смерти (до 10 лет)</td>
+            <th scope="row">Начальная выплата на случай смерти (до 10 лет)</th>
             <td>100% страховой суммы</td>
             <td>50% при смерти не от несчастного случая в первые 2 года</td>
             <td>Базовая выплата + доп. план на случай смерти после окончания уплаты взносов</td>
           </tr>
           <tr>
-            <td>Растущее покрытие по диагностике/лечению</td>
+            <th scope="row">Растущее покрытие по диагностике/лечению</th>
             <td>Выплата 1–10% на лечение + рост суммы на случай смерти</td>
             <td>То же (в первые 2 года выплата снижена на 50%)</td>
             <td>Диагностика и лечение (онко, инсульт, инфаркт) — рост суммы до 200% после окончания уплаты взносов</td>
           </tr>
           <tr>
-            <td>Уход и деменция</td>
+            <th scope="row">Уход и деменция</th>
             <td>—</td>
             <td>—</td>
             <td>Единовременная выплата при лёгкой стадии + ежегодная рента (до 15 лет) при тяжёлой стадии</td>
           </tr>
           <tr>
-            <td>Возврат взносов (пример)<sup>2</sup></td>
+            <th scope="row">Возврат взносов (пример)<sup>2</sup></th>
             <td><strong>100,0%</strong> (20 лет)</td>
             <td><strong>95,0%</strong> (20 лет)</td>
             <td><strong>116,8%</strong> (20 лет) / <strong>128,1%</strong> (40 лет)<sup>4</sup></td>
           </tr>
           <tr>
-            <td>Скидка для семьи</td>
+            <th scope="row">Скидка для семьи</th>
             <td>—</td>
             <td>—</td>
             <td>5% при оформлении на 2 и более членов семьи</td>
           </tr>
           <tr>
-            <td>Дополнительные сервисы</td>
+            <th scope="row">Дополнительные сервисы</th>
             <td>Услуга увеличения выплаты на случай смерти (20% от суммы взносов)</td>
             <td>То же (15% от суммы взносов)</td>
             <td>Программа заботы о здоровье: консультации, запись к врачу, сопровождение в больнице, помощь по дому</td>
           </tr>
           <tr>
-            <td>Брошюра</td>
-            <td colspan="2"><a href="assets/docs/cancer-treatment-plus-brochure.pdf" target="_blank" rel="noopener" class="table-download"><svg class="icon icon-xs"><use href="#icon-download"></use></svg> PDF «Лечение рака Плюс»</a></td>
-            <td><a href="assets/docs/samsung-newplus-one-brochure.pdf" target="_blank" rel="noopener" class="table-download"><svg class="icon icon-xs"><use href="#icon-download"></use></svg> PDF New Plus One</a></td>
+            <th scope="row">Брошюра</th>
+            <td colspan="2"><a href="assets/docs/cancer-treatment-plus-brochure.pdf" target="_blank" rel="noopener" class="table-download"><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-download"></use></svg> PDF «Лечение рака Плюс»</a></td>
+            <td><a href="assets/docs/samsung-newplus-one-brochure.pdf" target="_blank" rel="noopener" class="table-download"><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-download"></use></svg> PDF New Plus One</a></td>
           </tr>
         </tbody>
       </table>
@@ -382,11 +430,11 @@
 
     <div class="mini-gallery reveal">
       <figure>
-        <img src="assets/images/slide-07-benefit-diagram.jpg" alt="Схема роста выплаты на случай смерти по годам действия полиса" loading="lazy">
+        <img src="assets/images/thumb/slide-07-benefit-diagram.jpg" alt="Схема роста выплаты на случай смерти по годам действия полиса" loading="lazy" width="480" height="292">
         <figcaption>Пример роста суммы выплаты по годам действия полиса</figcaption>
       </figure>
       <figure>
-        <img src="assets/images/slide-08-refund-rate.jpg" alt="Таблица взносов и коэффициента возврата" loading="lazy">
+        <img src="assets/images/thumb/slide-08-refund-rate.jpg" alt="Таблица взносов и коэффициента возврата" loading="lazy" width="480" height="259">
         <figcaption>Пример расчёта взносов и коэффициента возврата</figcaption>
       </figure>
     </div>
@@ -394,114 +442,114 @@
 </section>
 
 <!-- ===== Gallery (all product material) ===== -->
-<section class="section" id="gallery">
+<section class="section" id="gallery" aria-labelledby="gallery-title">
   <div class="container">
     <p class="section-eyebrow reveal">МАТЕРИАЛЫ О ПРОДУКТЕ</p>
-    <h2 class="section-title reveal">Подробные материалы о продукте</h2>
+    <h2 class="section-title reveal" id="gallery-title">Подробные материалы о продукте</h2>
     <p class="section-desc reveal">Детальные информационные материалы по страхованию жизни «Лечение рака Плюс» и программе здоровья New Plus One. Нажмите на изображение, чтобы увеличить.</p>
 
-    <div class="filter-tabs reveal" data-filter-for="gallery-group">
-      <button class="filter-tab active" data-filter="all">Все материалы</button>
-      <button class="filter-tab" data-filter="cancer">«Лечение рака Плюс»</button>
-      <button class="filter-tab" data-filter="health">New Plus One</button>
+    <div class="filter-tabs reveal" data-filter-for="gallery-group" role="tablist" aria-label="Фильтр материалов">
+      <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">Все материалы</button>
+      <button class="filter-tab" data-filter="cancer" role="tab" aria-selected="false">«Лечение рака Плюс»</button>
+      <button class="filter-tab" data-filter="health" role="tab" aria-selected="false">New Plus One</button>
     </div>
 
     <div class="gallery-group" data-group="cancer">
       <h3 class="gallery-group-title reveal">«Лечение рака Плюс»</h3>
       <div class="gallery-grid">
-        <div class="gallery-item reveal" data-full="assets/images/slide-01-concept.jpg">
-          <img src="assets/images/thumb/slide-01-concept.jpg" alt="Предпосылки разработки продукта — страхование, объединяющее лечение рака и страхование на случай смерти" loading="lazy">
-          <p>Предпосылки разработки</p>
-        </div>
-        <div class="gallery-item reveal" data-full="assets/images/slide-02-product-structure.jpg">
-          <img src="assets/images/thumb/slide-02-product-structure.jpg" alt="Структура продукта — базовый полис и дополнительные условия" loading="lazy">
-          <p>Структура продукта</p>
-        </div>
-        <div class="gallery-item reveal" data-full="assets/images/slide-03-death-benefit-1.jpg">
-          <img src="assets/images/thumb/slide-03-death-benefit-1.jpg" alt="Условия покрытия — выплата на случай смерти I" loading="lazy">
-          <p>Покрытие · выплата на случай смерти I</p>
-        </div>
-        <div class="gallery-item reveal" data-full="assets/images/slide-04-treatment-benefit.jpg">
-          <img src="assets/images/thumb/slide-04-treatment-benefit.jpg" alt="Условия покрытия — выплата на лечение" loading="lazy">
-          <p>Покрытие · выплата на лечение</p>
-        </div>
-        <div class="gallery-item reveal" data-full="assets/images/slide-05-death-benefit-2.jpg">
-          <img src="assets/images/thumb/slide-05-death-benefit-2.jpg" alt="Условия покрытия — выплата на случай смерти II" loading="lazy">
-          <p>Покрытие · выплата на случай смерти II</p>
-        </div>
-        <div class="gallery-item reveal" data-full="assets/images/slide-06-increase-service.jpg">
-          <img src="assets/images/thumb/slide-06-increase-service.jpg" alt="Услуга увеличения выплаты на случай смерти" loading="lazy">
-          <p>Услуга увеличения выплаты</p>
-        </div>
-        <div class="gallery-item reveal" data-full="assets/images/slide-07-benefit-diagram.jpg">
-          <img src="assets/images/thumb/slide-07-benefit-diagram.jpg" alt="Схема выплат по базовому полису" loading="lazy">
-          <p>Схема выплат по полису</p>
-        </div>
-        <div class="gallery-item reveal" data-full="assets/images/slide-08-refund-rate.jpg">
-          <img src="assets/images/thumb/slide-08-refund-rate.jpg" alt="Взносы и коэффициент возврата" loading="lazy">
-          <p>Взносы и коэффициент возврата</p>
-        </div>
-        <div class="gallery-item reveal" data-full="assets/images/slide-09-eligibility.jpg">
-          <img src="assets/images/thumb/slide-09-eligibility.jpg" alt="Порядок продажи — срок действия и возраст оформления" loading="lazy">
-          <p>Возраст оформления</p>
-        </div>
-        <div class="gallery-item reveal" data-full="assets/images/slide-10-simplified-disclosure.jpg">
-          <img src="assets/images/thumb/slide-10-simplified-disclosure.jpg" alt="Пункты декларирования по упрощённому пакету" loading="lazy">
-          <p>Декларирование в упрощённом пакете</p>
-        </div>
-        <div class="gallery-item reveal" data-full="assets/images/slide-12-selling-points-list.jpg">
-          <img src="assets/images/thumb/slide-12-selling-points-list.jpg" alt="Обзор преимуществ продукта" loading="lazy">
-          <p>Обзор преимуществ</p>
-        </div>
-        <div class="gallery-item reveal" data-full="assets/images/slide-13-selling-point-1.jpg">
-          <img src="assets/images/thumb/slide-13-selling-point-1.jpg" alt="Преимущество — рост суммы на случай смерти" loading="lazy">
-          <p>Рост суммы на случай смерти</p>
-        </div>
-        <div class="gallery-item reveal" data-full="assets/images/slide-14-selling-point-3.jpg">
-          <img src="assets/images/thumb/slide-14-selling-point-3.jpg" alt="Преимущество — рост выплат на лечение и на случай смерти" loading="lazy">
-          <p>Рост выплат на лечение</p>
-        </div>
-        <div class="gallery-item reveal" data-full="assets/images/slide-15-comparison.jpg">
-          <img src="assets/images/thumb/slide-15-comparison.jpg" alt="Сравнение с другими продуктами" loading="lazy">
-          <p>Сравнение с другими продуктами</p>
-        </div>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/slide-01-concept.jpg">
+          <img src="assets/images/thumb/slide-01-concept.jpg" alt="Предпосылки разработки продукта — страхование, объединяющее лечение рака и страхование на случай смерти" loading="lazy" width="480" height="252">
+          <span>Предпосылки разработки</span>
+        </button>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/slide-02-product-structure.jpg">
+          <img src="assets/images/thumb/slide-02-product-structure.jpg" alt="Структура продукта — базовый полис и дополнительные условия" loading="lazy" width="480" height="247">
+          <span>Структура продукта</span>
+        </button>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/slide-03-death-benefit-1.jpg">
+          <img src="assets/images/thumb/slide-03-death-benefit-1.jpg" alt="Условия покрытия — выплата на случай смерти I" loading="lazy" width="480" height="244">
+          <span>Покрытие · выплата на случай смерти I</span>
+        </button>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/slide-04-treatment-benefit.jpg">
+          <img src="assets/images/thumb/slide-04-treatment-benefit.jpg" alt="Условия покрытия — выплата на лечение" loading="lazy" width="480" height="267">
+          <span>Покрытие · выплата на лечение</span>
+        </button>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/slide-05-death-benefit-2.jpg">
+          <img src="assets/images/thumb/slide-05-death-benefit-2.jpg" alt="Условия покрытия — выплата на случай смерти II" loading="lazy" width="480" height="274">
+          <span>Покрытие · выплата на случай смерти II</span>
+        </button>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/slide-06-increase-service.jpg">
+          <img src="assets/images/thumb/slide-06-increase-service.jpg" alt="Услуга увеличения выплаты на случай смерти" loading="lazy" width="480" height="259">
+          <span>Услуга увеличения выплаты</span>
+        </button>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/slide-07-benefit-diagram.jpg">
+          <img src="assets/images/thumb/slide-07-benefit-diagram.jpg" alt="Схема выплат по базовому полису" loading="lazy" width="480" height="292">
+          <span>Схема выплат по полису</span>
+        </button>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/slide-08-refund-rate.jpg">
+          <img src="assets/images/thumb/slide-08-refund-rate.jpg" alt="Взносы и коэффициент возврата" loading="lazy" width="480" height="259">
+          <span>Взносы и коэффициент возврата</span>
+        </button>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/slide-09-eligibility.jpg">
+          <img src="assets/images/thumb/slide-09-eligibility.jpg" alt="Порядок продажи — срок действия и возраст оформления" loading="lazy" width="480" height="264">
+          <span>Возраст оформления</span>
+        </button>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/slide-10-simplified-disclosure.jpg">
+          <img src="assets/images/thumb/slide-10-simplified-disclosure.jpg" alt="Пункты декларирования по упрощённому пакету" loading="lazy" width="480" height="257">
+          <span>Декларирование в упрощённом пакете</span>
+        </button>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/slide-12-selling-points-list.jpg">
+          <img src="assets/images/thumb/slide-12-selling-points-list.jpg" alt="Обзор преимуществ продукта" loading="lazy" width="480" height="267">
+          <span>Обзор преимуществ</span>
+        </button>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/slide-13-selling-point-1.jpg">
+          <img src="assets/images/thumb/slide-13-selling-point-1.jpg" alt="Преимущество — рост суммы на случай смерти" loading="lazy" width="480" height="283">
+          <span>Рост суммы на случай смерти</span>
+        </button>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/slide-14-selling-point-3.jpg">
+          <img src="assets/images/thumb/slide-14-selling-point-3.jpg" alt="Преимущество — рост выплат на лечение и на случай смерти" loading="lazy" width="480" height="280">
+          <span>Рост выплат на лечение</span>
+        </button>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/slide-15-comparison.jpg">
+          <img src="assets/images/thumb/slide-15-comparison.jpg" alt="Сравнение с другими продуктами" loading="lazy" width="480" height="293">
+          <span>Сравнение с другими продуктами</span>
+        </button>
       </div>
     </div>
 
     <div class="gallery-group" data-group="health">
       <h3 class="gallery-group-title gallery-group-title-spaced reveal">New Plus One</h3>
       <div class="gallery-grid">
-        <div class="gallery-item reveal" data-full="assets/images/newplus-01-concept.jpg">
-          <img src="assets/images/thumb/newplus-01-concept.jpg" alt="Концепция программы New Plus One — базовое покрытие плюс дополнительный план после уплаты взносов" loading="lazy">
-          <p>Концепция программы</p>
-        </div>
-        <div class="gallery-item reveal" data-full="assets/images/newplus-02-plus-plans.jpg">
-          <img src="assets/images/thumb/newplus-02-plus-plans.jpg" alt="Дополнительные планы — смерть, пожилой возраст, зубы" loading="lazy">
-          <p>Доп. планы: смерть / возраст / зубы</p>
-        </div>
-        <div class="gallery-item reveal" data-full="assets/images/newplus-03-ltc-dementia.jpg">
-          <img src="assets/images/thumb/newplus-03-ltc-dementia.jpg" alt="Покрытие на случай длительного ухода и деменции" loading="lazy">
-          <p>Уход и деменция</p>
-        </div>
-        <div class="gallery-item reveal" data-full="assets/images/newplus-04-compounding-riders.jpg">
-          <img src="assets/images/thumb/newplus-04-compounding-riders.jpg" alt="Растущие риски по диагностике и лечению, график коэффициента возврата" loading="lazy">
-          <p>Растущее покрытие и возврат взносов</p>
-        </div>
-        <div class="gallery-item reveal" data-full="assets/images/newplus-05-family-discount.jpg">
-          <img src="assets/images/thumb/newplus-05-family-discount.jpg" alt="Скидка для семьи и программа заботы о здоровье" loading="lazy">
-          <p>Скидка для семьи и забота о здоровье</p>
-        </div>
-        <div class="gallery-item reveal" data-full="assets/images/newplus-06-premium-table.jpg">
-          <img src="assets/images/thumb/newplus-06-premium-table.jpg" alt="Пример расчёта взносов и выкупной суммы" loading="lazy">
-          <p>Пример расчёта взносов</p>
-        </div>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/newplus-01-concept.jpg">
+          <img src="assets/images/thumb/newplus-01-concept.jpg" alt="Концепция программы New Plus One — базовое покрытие плюс дополнительный план после уплаты взносов" loading="lazy" width="480" height="678">
+          <span>Концепция программы</span>
+        </button>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/newplus-02-plus-plans.jpg">
+          <img src="assets/images/thumb/newplus-02-plus-plans.jpg" alt="Дополнительные планы — смерть, пожилой возраст, зубы" loading="lazy" width="480" height="678">
+          <span>Доп. планы: смерть / возраст / зубы</span>
+        </button>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/newplus-03-ltc-dementia.jpg">
+          <img src="assets/images/thumb/newplus-03-ltc-dementia.jpg" alt="Покрытие на случай длительного ухода и деменции" loading="lazy" width="480" height="678">
+          <span>Уход и деменция</span>
+        </button>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/newplus-04-compounding-riders.jpg">
+          <img src="assets/images/thumb/newplus-04-compounding-riders.jpg" alt="Растущие риски по диагностике и лечению, график коэффициента возврата" loading="lazy" width="480" height="678">
+          <span>Растущее покрытие и возврат взносов</span>
+        </button>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/newplus-05-family-discount.jpg">
+          <img src="assets/images/thumb/newplus-05-family-discount.jpg" alt="Скидка для семьи и программа заботы о здоровье" loading="lazy" width="480" height="678">
+          <span>Скидка для семьи и забота о здоровье</span>
+        </button>
+        <button type="button" class="gallery-item reveal" data-full="assets/images/newplus-06-premium-table.jpg">
+          <img src="assets/images/thumb/newplus-06-premium-table.jpg" alt="Пример расчёта взносов и выкупной суммы" loading="lazy" width="480" height="678">
+          <span>Пример расчёта взносов</span>
+        </button>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Lightbox -->
-<div class="lightbox" id="lightbox">
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр изображения" hidden>
   <button class="lightbox-close" id="lightboxClose" aria-label="Закрыть">&times;</button>
   <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Предыдущее изображение">&#10094;</button>
   <figure class="lightbox-figure">
@@ -512,10 +560,10 @@
 </div>
 
 <!-- ===== FAQ / Оформление ===== -->
-<section class="section section-tint" id="faq">
+<section class="section section-tint" id="faq" aria-labelledby="faq-title">
   <div class="container">
     <p class="section-eyebrow reveal">ИНФОРМАЦИЯ</p>
-    <h2 class="section-title reveal">Что нужно знать перед оформлением</h2>
+    <h2 class="section-title reveal" id="faq-title">Что нужно знать перед оформлением</h2>
 
     <div class="faq-list reveal">
       <details class="faq-item" open>
@@ -547,23 +595,22 @@
 </section>
 
 <!-- ===== CTA banner ===== -->
-<section class="cta-banner">
-  <div class="hero-orb orb-cta"></div>
+<section class="cta-banner" aria-labelledby="cta-title">
   <div class="container cta-banner-inner reveal">
-    <h2>Готовы выбрать надёжную защиту?</h2>
+    <h2 id="cta-title">Готовы выбрать надёжную защиту?</h2>
     <p>Оставьте заявку — консультант Samsung Insurance поможет подобрать пакет под ваши задачи и рассчитает точную стоимость.</p>
     <div class="cta-banner-actions">
       <a href="#contact" class="btn btn-primary btn-lg">Получить консультацию</a>
-      <a href="#compare" class="btn btn-ghost btn-lg">Сравнить пакеты</a>
+      <a href="#compare" class="btn btn-outline-light btn-lg">Сравнить пакеты</a>
     </div>
   </div>
 </section>
 
 <!-- ===== Contact ===== -->
-<section class="section" id="contact">
+<section class="section" id="contact" aria-labelledby="contact-title">
   <div class="container">
     <p class="section-eyebrow reveal">КОНТАКТЫ</p>
-    <h2 class="section-title reveal">Заявка на бесплатную консультацию</h2>
+    <h2 class="section-title reveal" id="contact-title">Заявка на бесплатную консультацию</h2>
     <p class="section-desc reveal">Оставьте свои данные — наш консультант свяжется с вами после проверки заявки.</p>
 
     <div class="contact-wrap">
@@ -571,21 +618,21 @@
         <div class="form-row">
           <div class="form-group">
             <label for="name">Имя <span class="req">*</span></label>
-            <input type="text" id="name" name="name" placeholder="Иван Иванов" required>
-            <span class="error-msg"></span>
+            <input type="text" id="name" name="name" placeholder="Иван Иванов" autocomplete="name" required>
+            <span class="error-msg" id="name-error" role="alert"></span>
           </div>
           <div class="form-group">
             <label for="phone">Телефон <span class="req">*</span></label>
-            <input type="tel" id="phone" name="phone" placeholder="+7 900 000-00-00" required>
-            <span class="error-msg"></span>
+            <input type="tel" id="phone" name="phone" placeholder="+7 900 000-00-00" autocomplete="tel" required>
+            <span class="error-msg" id="phone-error" role="alert"></span>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="example@email.com">
-            <span class="error-msg"></span>
+            <input type="email" id="email" name="email" placeholder="example@email.com" autocomplete="email">
+            <span class="error-msg" id="email-error" role="alert"></span>
           </div>
           <div class="form-group">
             <label for="package">Интересующий пакет</label>
@@ -609,7 +656,7 @@
             <input type="checkbox" id="agree" name="agree" required>
             <span>Я согласен(на) на сбор и обработку персональных данных. <span class="req">*</span></span>
           </label>
-          <span class="error-msg"></span>
+          <span class="error-msg" id="agree-error" role="alert"></span>
         </div>
 
         <button type="submit" class="btn btn-primary btn-lg btn-block">Отправить заявку</button>
@@ -618,7 +665,7 @@
 
       <div class="contact-info reveal">
         <a class="info-card" href="tel:+78000000000">
-          <div class="info-card-icon"><svg class="icon"><use href="#icon-phone"></use></svg></div>
+          <div class="info-card-icon"><svg class="icon" aria-hidden="true"><use href="#icon-phone"></use></svg></div>
           <div>
             <h3>Телефон</h3>
             <p>+7 (800) 000-00-00</p>
@@ -626,7 +673,7 @@
           </div>
         </a>
         <a class="info-card" href="mailto:consult@samsung-insurance.example">
-          <div class="info-card-icon"><svg class="icon"><use href="#icon-mail"></use></svg></div>
+          <div class="info-card-icon"><svg class="icon" aria-hidden="true"><use href="#icon-mail"></use></svg></div>
           <div>
             <h3>Email</h3>
             <p>consult@samsung-insurance.example</p>
@@ -634,7 +681,7 @@
           </div>
         </a>
         <div class="info-card">
-          <div class="info-card-icon"><svg class="icon"><use href="#icon-undo"></use></svg></div>
+          <div class="info-card-icon"><svg class="icon" aria-hidden="true"><use href="#icon-undo"></use></svg></div>
           <div>
             <h3>Отказ от полиса</h3>
             <p>В течение 15 дней с получения полиса</p>
@@ -646,13 +693,15 @@
   </div>
 </section>
 
+</main>
+
 <!-- ===== Footer ===== -->
 <footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-col footer-col-brand">
         <div class="footer-brand">
-          <span class="logo-mark">S</span>
+          <span class="logo-mark" aria-hidden="true">S</span>
           <span class="logo-text">Samsung <em>Insurance</em></span>
         </div>
         <p>Премиальные страховые продукты для вас и вашей семьи — понятно, по-русски, с примерами и подробными материалами.</p>
@@ -672,9 +721,9 @@
       </div>
       <div class="footer-col">
         <h4>Контакты</h4>
-        <a href="tel:+78000000000"><svg class="icon icon-xs"><use href="#icon-phone"></use></svg> +7 (800) 000-00-00</a>
-        <a href="mailto:consult@samsung-insurance.example"><svg class="icon icon-xs"><use href="#icon-mail"></use></svg> consult@samsung-insurance.example</a>
-        <a href="#contact"><svg class="icon icon-xs"><use href="#icon-arrow"></use></svg> Оставить заявку</a>
+        <a href="tel:+78000000000"><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-phone"></use></svg> +7 (800) 000-00-00</a>
+        <a href="mailto:consult@samsung-insurance.example"><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-mail"></use></svg> consult@samsung-insurance.example</a>
+        <a href="#contact"><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-arrow"></use></svg> Оставить заявку</a>
       </div>
     </div>
     <p class="footer-disclaimer">
@@ -682,7 +731,12 @@
       Указанные покрытие, размер взносов и коэффициенты возврата приведены в качестве примера и могут отличаться в зависимости от возраста, пола, срока уплаты взносов и других условий.
       Точные условия уточняйте в официальном описании продукта и в тексте договора. Обратите внимание: часть условий договора может не подпадать под систему гарантирования страховых выплат — уточняйте это перед оформлением.
     </p>
-    <p class="footer-copy">&copy; <span id="year"></span> Samsung Insurance Consulting. Все права защищены.</p>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; <span id="year"></span> Samsung Insurance Consulting. Все права защищены.</p>
+      <button type="button" class="back-to-top" id="backToTop" aria-label="Наверх страницы">
+        <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-up"></use></svg>
+      </button>
+    </div>
   </div>
 </footer>
 
