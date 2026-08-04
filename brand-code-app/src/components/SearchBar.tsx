@@ -8,9 +8,15 @@ interface SearchBarProps {
   value: string;
   onChangeText: (text: string) => void;
   placeholder?: string;
+  editable?: boolean;
 }
 
-export function SearchBar({ value, onChangeText, placeholder = 'Поиск по бренду или товару' }: SearchBarProps) {
+export function SearchBar({
+  value,
+  onChangeText,
+  placeholder = 'Поиск по бренду или товару',
+  editable = true,
+}: SearchBarProps) {
   return (
     <View style={styles.container}>
       <Ionicons name="search" size={18} color={colors.textMuted} />
@@ -21,6 +27,8 @@ export function SearchBar({ value, onChangeText, placeholder = 'Поиск по 
         placeholderTextColor={colors.textMuted}
         style={styles.input}
         returnKeyType="search"
+        editable={editable}
+        pointerEvents={editable ? 'auto' : 'none'}
       />
     </View>
   );

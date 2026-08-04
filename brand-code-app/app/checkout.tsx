@@ -10,6 +10,14 @@ import { colors, radius, spacing, typography } from '../src/theme';
 import type { CartItem, Order } from '../src/types';
 import { formatPrice } from '../src/utils';
 
+function pluralizeOrders(count: number): string {
+  const mod10 = count % 10;
+  const mod100 = count % 100;
+  if (mod10 === 1 && mod100 !== 11) return 'заявка';
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return 'заявки';
+  return 'заявок';
+}
+
 export default function CheckoutScreen() {
   const router = useRouter();
   const { cartItems, cartTotal, checkoutCart } = useAppState();
@@ -30,7 +38,7 @@ export default function CheckoutScreen() {
           <Text style={styles.successTitle}>Заказ оформлен</Text>
           <Text style={styles.successDescription}>
             {createdOrders.length > 1
-              ? `Создано ${createdOrders.length} заявки. Байер проверит наличие каждого товара в аутлете и подтвердит заказ.`
+              ? `Создано ${createdOrders.length} ${pluralizeOrders(createdOrders.length)}. Байер проверит наличие каждого товара в аутлете и подтвердит заказ.`
               : 'Байер проверит наличие товара в аутлете и подтвердит заказ.'}
             {' '}Деньги пока не списаны — мы свяжемся с вами после подтверждения.
           </Text>
