@@ -3,14 +3,14 @@ import React, { useMemo } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { EmptyState, ProductCard, ScreenHeader } from '../../src/components';
+import { CartButton, EmptyState, ProductCard, ScreenHeader } from '../../src/components';
 import { products } from '../../src/data/products';
 import { useAppState } from '../../src/store/AppStateContext';
 import { colors, spacing } from '../../src/theme';
 
 export default function FavoritesScreen() {
   const router = useRouter();
-  const { favoriteIds, isFavorite, toggleFavorite } = useAppState();
+  const { favoriteIds, isFavorite, toggleFavorite, addToCart, cartCount } = useAppState();
 
   const favoriteProducts = useMemo(
     () => products.filter((product) => favoriteIds.includes(product.id)),
@@ -19,7 +19,11 @@ export default function FavoritesScreen() {
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['top']}>
-      <ScreenHeader title="Избранное" subtitle={favoriteProducts.length > 0 ? `${favoriteProducts.length} товаров` : undefined} />
+      <ScreenHeader
+        title="Избранное"
+        subtitle={favoriteProducts.length > 0 ? `${favoriteProducts.length} товаров` : undefined}
+        rightElement={<CartButton count={cartCount} onPress={() => router.push('/cart')} />}
+      />
 
       <FlatList
         data={favoriteProducts}
@@ -41,6 +45,7 @@ export default function FavoritesScreen() {
             style={styles.card}
             isFavorite={isFavorite(item.id)}
             onToggleFavorite={() => toggleFavorite(item.id)}
+            onQuickAdd={(size) => addToCart({ productId: item.id, size })}
             onPress={() => router.push(`/product/${item.id}`)}
           />
         )}

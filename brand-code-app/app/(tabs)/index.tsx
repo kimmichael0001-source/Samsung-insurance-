@@ -3,7 +3,7 @@ import React, { useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { BrandChip, ProductCard, SearchBar } from '../../src/components';
+import { BrandChip, CartButton, ProductCard, SearchBar } from '../../src/components';
 import { brands } from '../../src/data/brands';
 import { products } from '../../src/data/products';
 import { useAppState } from '../../src/store/AppStateContext';
@@ -11,7 +11,7 @@ import { colors, radius, spacing, typography } from '../../src/theme';
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { isFavorite, toggleFavorite } = useAppState();
+  const { isFavorite, toggleFavorite, addToCart, cartCount } = useAppState();
   const [searchValue, setSearchValue] = useState('');
 
   const newArrivals = useMemo(
@@ -41,6 +41,7 @@ export default function HomeScreen() {
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.topBar}>
           <Text style={styles.logo}>CODE</Text>
+          <CartButton count={cartCount} onPress={() => router.push('/cart')} />
         </View>
 
         <View style={styles.welcomeBlock}>
@@ -82,6 +83,7 @@ export default function HomeScreen() {
               style={styles.productCard}
               isFavorite={isFavorite(product.id)}
               onToggleFavorite={() => toggleFavorite(product.id)}
+              onQuickAdd={(size) => addToCart({ productId: product.id, size })}
               onPress={() => router.push(`/product/${product.id}`)}
             />
           ))}
@@ -100,6 +102,7 @@ export default function HomeScreen() {
               style={styles.productCard}
               isFavorite={isFavorite(product.id)}
               onToggleFavorite={() => toggleFavorite(product.id)}
+              onQuickAdd={(size) => addToCart({ productId: product.id, size })}
               onPress={() => router.push(`/product/${product.id}`)}
             />
           ))}
@@ -129,6 +132,9 @@ const styles = StyleSheet.create({
     paddingBottom: spacing.xxxl,
   },
   topBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: spacing.xl,
     paddingTop: spacing.md,
   },

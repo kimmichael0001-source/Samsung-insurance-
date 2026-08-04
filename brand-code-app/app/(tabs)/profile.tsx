@@ -4,14 +4,8 @@ import { Alert, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 're
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ScreenHeader } from '../../src/components';
+import { demoUser } from '../../src/data/user';
 import { colors, radius, spacing, typography } from '../../src/theme';
-
-const DEMO_USER = {
-  name: 'Алия Нурланова',
-  phone: '+7 707 123 45 67',
-  city: 'Алматы',
-  address: 'мкр. Самал-2, дом 15, кв. 40',
-};
 
 function InfoRow({ icon, label, value }: { icon: keyof typeof Ionicons.glyphMap; label: string; value: string }) {
   return (
@@ -69,10 +63,10 @@ export default function ProfileScreen() {
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.userCard}>
           <View style={styles.avatar}>
-            <Text style={styles.avatarText}>{DEMO_USER.name.charAt(0)}</Text>
+            <Text style={styles.avatarText}>{demoUser.name.charAt(0)}</Text>
           </View>
           <View style={styles.userInfo}>
-            <Text style={styles.userName}>{DEMO_USER.name}</Text>
+            <Text style={styles.userName}>{demoUser.name}</Text>
             <Text style={styles.userTag}>Демонстрационный профиль</Text>
           </View>
         </View>
@@ -80,11 +74,11 @@ export default function ProfileScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Контактные данные</Text>
           <View style={styles.card}>
-            <InfoRow icon="call-outline" label="Телефон" value={DEMO_USER.phone} />
+            <InfoRow icon="call-outline" label="Телефон" value={demoUser.phone} />
             <View style={styles.divider} />
-            <InfoRow icon="location-outline" label="Город" value={DEMO_USER.city} />
+            <InfoRow icon="location-outline" label="Город" value={demoUser.city} />
             <View style={styles.divider} />
-            <InfoRow icon="home-outline" label="Адрес доставки" value={DEMO_USER.address} />
+            <InfoRow icon="home-outline" label="Адрес доставки" value={demoUser.deliveryAddress} />
           </View>
         </View>
 

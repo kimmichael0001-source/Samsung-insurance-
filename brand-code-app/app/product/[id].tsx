@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { DiscountBadge, PriceBlock, ScreenHeader, SizeSelector } from '../../src/components';
+import { CartButton, DiscountBadge, PriceBlock, ScreenHeader, SizeSelector } from '../../src/components';
 import { conditionLabels } from '../../src/data/labels';
 import { getProductById } from '../../src/data/products';
 import { useAppState } from '../../src/store/AppStateContext';
@@ -33,7 +33,7 @@ export default function ProductScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const { width } = useWindowDimensions();
-  const { isFavorite, toggleFavorite } = useAppState();
+  const { isFavorite, toggleFavorite, addToCart, cartCount } = useAppState();
 
   const product = useMemo(() => getProductById(id ?? ''), [id]);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
@@ -74,9 +74,22 @@ export default function ProductScreen() {
     router.push({ pathname: '/order-confirmation', params: { productId: product.id, size: selectedSize } });
   };
 
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      Alert.alert('Выберите размер', 'Пожалуйста, укажите размер перед добавлением в корзину.');
+      return;
+    }
+    addToCart({ productId: product.id, size: selectedSize });
+    Alert.alert('Добавлено в корзину', `${product.brand} · ${product.title}, размер ${selectedSize}`);
+  };
+
   return (
     <SafeAreaView style={styles.safeArea} edges={['top']}>
-      <ScreenHeader title={product.brand} showBack />
+      <ScreenHeader
+        title={product.brand}
+        showBack
+        rightElement={<CartButton count={cartCount} onPress={() => router.push('/cart')} />}
+      />
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         <View>
@@ -160,7 +173,16 @@ export default function ProductScreen() {
       </ScrollView>
 
       <View style={styles.footer}>
-        <Pressable disabled={!product.isAvailable} style={[styles.submitButton, !product.isAvailable && styles.submitButtonDisabled]} onPress={handleSubmitRequest}>
+        {product.isAvailable ? (
+          <Pressable style={styles.cartButton} onPress={handleAddToCart}>
+            <Ionicons name="bag-add-outline" size={18} color={colors.textPrimary} />
+          </Pressable>
+        ) : null}
+        <Pressable
+          disabled={!product.isAvailable}
+          style={[styles.submitButton, !product.isAvailable && styles.submitButtonDisabled]}
+          onPress={handleSubmitRequest}
+        >
           <Text style={styles.submitButtonText}>
             {product.isAvailable ? 'Оформить заявку' : 'Товар раскуплен'}
           </Text>
@@ -320,12 +342,24 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   footer: {
+    flexDirection: 'row',
+    gap: spacing.md,
     padding: spacing.xl,
     borderTopWidth: 1,
     borderTopColor: colors.border,
     backgroundColor: colors.surface,
   },
+  cartButton: {
+    width: 52,
+    height: 52,
+    borderRadius: radius.pill,
+    borderWidth: 1,
+    borderColor: colors.border,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   submitButton: {
+    flex: 1,
     height: 52,
     borderRadius: radius.pill,
     backgroundColor: colors.accent,
