@@ -3,14 +3,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  /* ---------- Header scroll state ---------- */
+  /* ---------- Header scroll state + scroll progress + back-to-top ---------- */
   const header = document.getElementById('siteHeader');
+  const scrollProgress = document.getElementById('scrollProgress');
+  const backToTop = document.getElementById('backToTop');
   const onScroll = () => {
     if (window.scrollY > 40) header.classList.add('scrolled');
     else header.classList.remove('scrolled');
+
+    if (scrollProgress) {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+      scrollProgress.style.width = `${Math.min(100, Math.max(0, pct))}%`;
+    }
+
+    if (backToTop) backToTop.classList.toggle('show', window.scrollY > 600);
   };
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
+
+  if (backToTop) {
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   /* ---------- Mobile nav toggle ---------- */
   const hamburger = document.getElementById('hamburger');
@@ -20,16 +36,47 @@ document.addEventListener('DOMContentLoaded', () => {
     hamburger.classList.toggle('active', isOpen);
     hamburger.setAttribute('aria-expanded', String(isOpen));
   });
-  mainNav.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
+
+  /* ---------- Mobile dropdown (Пакеты) toggle ---------- */
+  const dropdownParent = document.querySelector('.nav-has-dropdown');
+  const dropdownTrigger = dropdownParent ? dropdownParent.querySelector('.nav-link') : null;
+  if (dropdownParent && dropdownTrigger) {
+    dropdownTrigger.addEventListener('click', (e) => {
+      if (window.innerWidth <= 860) {
+        e.preventDefault();
+        const isOpen = dropdownParent.classList.toggle('open');
+        dropdownTrigger.setAttribute('aria-expanded', String(isOpen));
+      }
+    });
+  }
+
+  mainNav.querySelectorAll('.nav-link, .nav-dropdown a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      if (e.defaultPrevented) return;
       mainNav.classList.remove('open');
       hamburger.classList.remove('active');
       hamburger.setAttribute('aria-expanded', 'false');
+      if (dropdownParent) dropdownParent.classList.remove('open');
+      if (dropdownTrigger) dropdownTrigger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* ---------- Scroll-to-target links (package quick links) ---------- */
+  document.querySelectorAll('[data-scroll-target]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const targetEl = document.getElementById(link.getAttribute('data-scroll-target'));
+      if (!targetEl) return;
+      e.preventDefault();
+      const headerH = header.offsetHeight;
+      const top = targetEl.getBoundingClientRect().top + window.scrollY - headerH - 20;
+      window.scrollTo({ top, behavior: 'smooth' });
+      targetEl.classList.add('flash-highlight');
+      setTimeout(() => targetEl.classList.remove('flash-highlight'), 1600);
     });
   });
 
   /* ---------- Active nav link on scroll ---------- */
-  const sections = document.querySelectorAll('section[id]');
+  const sections = document.querySelectorAll('main section[id]');
   const navLinks = document.querySelectorAll('.nav-link');
   const setActiveLink = () => {
     let currentId = sections[0] ? sections[0].id : '';
@@ -86,36 +133,74 @@ document.addEventListener('DOMContentLoaded', () => {
     statNums.forEach(el => statIO.observe(el));
   }
 
+  /* ---------- Filter tabs (packages & gallery) ---------- */
+  document.querySelectorAll('.filter-tabs').forEach(tabBar => {
+    const groupClass = tabBar.getAttribute('data-filter-for');
+    const groups = document.querySelectorAll(`.${groupClass}`);
+    const tabs = tabBar.querySelectorAll('.filter-tab');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const filter = tab.getAttribute('data-filter');
+        tabs.forEach(t => {
+          t.classList.toggle('active', t === tab);
+          t.setAttribute('aria-selected', String(t === tab));
+        });
+        groups.forEach(group => {
+          const matches = filter === 'all' || group.getAttribute('data-group') === filter;
+          group.classList.toggle('filtered-out', !matches);
+        });
+      });
+    });
+  });
+
   /* ---------- Lightbox gallery ---------- */
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCounter = document.getElementById('lightboxCounter');
   const lightboxClose = document.getElementById('lightboxClose');
   const lightboxPrev = document.getElementById('lightboxPrev');
   const lightboxNext = document.getElementById('lightboxNext');
-  const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+  let visibleItems = [];
   let currentIndex = 0;
+  let lastFocusedTrigger = null;
 
-  const openLightbox = (index) => {
-    currentIndex = index;
-    const item = galleryItems[currentIndex];
+  const getVisibleGalleryItems = () =>
+    Array.from(document.querySelectorAll('.gallery-item')).filter(el => el.offsetParent !== null);
+
+  const renderLightbox = () => {
+    const item = visibleItems[currentIndex];
+    if (!item) return;
     lightboxImg.src = item.getAttribute('data-full');
     lightboxImg.alt = item.querySelector('img').alt;
+    if (lightboxCounter) lightboxCounter.textContent = `${currentIndex + 1} / ${visibleItems.length}`;
+  };
+
+  const openLightbox = (item) => {
+    visibleItems = getVisibleGalleryItems();
+    currentIndex = visibleItems.indexOf(item);
+    if (currentIndex < 0) currentIndex = 0;
+    lastFocusedTrigger = item;
+    renderLightbox();
+    lightbox.hidden = false;
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
+    lightboxClose.focus();
   };
   const closeLightbox = () => {
     lightbox.classList.remove('active');
+    lightbox.hidden = true;
     document.body.style.overflow = '';
+    if (lastFocusedTrigger) lastFocusedTrigger.focus();
   };
   const showRelative = (delta) => {
-    currentIndex = (currentIndex + delta + galleryItems.length) % galleryItems.length;
-    const item = galleryItems[currentIndex];
-    lightboxImg.src = item.getAttribute('data-full');
-    lightboxImg.alt = item.querySelector('img').alt;
+    if (!visibleItems.length) return;
+    currentIndex = (currentIndex + delta + visibleItems.length) % visibleItems.length;
+    renderLightbox();
   };
 
-  galleryItems.forEach((item, index) => {
-    item.addEventListener('click', () => openLightbox(index));
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', () => openLightbox(item));
   });
   lightboxClose.addEventListener('click', closeLightbox);
   lightboxPrev.addEventListener('click', () => showRelative(-1));
@@ -128,6 +213,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowLeft') showRelative(-1);
     if (e.key === 'ArrowRight') showRelative(1);
+    if (e.key === 'Tab') {
+      // Simple focus trap: cycle between the three lightbox controls.
+      const focusable = [lightboxClose, lightboxPrev, lightboxNext];
+      const activeIdx = focusable.indexOf(document.activeElement);
+      e.preventDefault();
+      const next = e.shiftKey
+        ? focusable[(activeIdx - 1 + focusable.length) % focusable.length]
+        : focusable[(activeIdx + 1) % focusable.length];
+      (next || lightboxClose).focus();
+    }
   });
 
   /* ---------- Contact form validation ---------- */
