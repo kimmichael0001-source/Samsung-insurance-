@@ -777,7 +777,6 @@ textarea:focus-visible,
   color: var(--blue);
   margin: 0 0 20px;
 }
-.gallery-group-title-spaced { margin-top: 44px; }
 .gallery-group { transition: opacity .3s ease; }
 .gallery-group.filtered-out { display: none; }
 .gallery-grid {
