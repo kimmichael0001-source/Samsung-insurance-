@@ -7,7 +7,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { BrandChip, CartButton, EmptyState, FilterButton, ProductCard, ScreenHeader, SearchBar } from '../../src/components';
 import { brands } from '../../src/data/brands';
 import { categoryLabels } from '../../src/data/labels';
-import { products } from '../../src/data/products';
 import { useAppState } from '../../src/store/AppStateContext';
 import { colors, radius, spacing, typography } from '../../src/theme';
 import type { ProductCategory } from '../../src/types';
@@ -38,8 +37,6 @@ const PRICE_OPTIONS: { id: PricePreset; label: string }[] = [
   { id: 'over60', label: 'От 60 000 ₸' },
 ];
 
-const ALL_SIZES = Array.from(new Set(products.flatMap((product) => product.availableSizes))).sort();
-
 function matchesPricePreset(price: number, preset: PricePreset): boolean {
   if (preset === 'under30') return price < 30000;
   if (preset === '30_60') return price >= 30000 && price <= 60000;
@@ -50,7 +47,7 @@ function matchesPricePreset(price: number, preset: PricePreset): boolean {
 export default function CatalogScreen() {
   const router = useRouter();
   const params = useLocalSearchParams<{ brand?: string; sort?: string }>();
-  const { isFavorite, toggleFavorite, addToCart, cartCount } = useAppState();
+  const { products, isFavorite, toggleFavorite, addToCart, cartCount } = useAppState();
 
   const [searchValue, setSearchValue] = useState('');
   const [category, setCategory] = useState<ProductCategory | 'all'>('all');
@@ -90,6 +87,11 @@ export default function CatalogScreen() {
 
   const activeFilterCount = selectedBrands.length + selectedSizes.length + (pricePreset !== 'all' ? 1 : 0);
 
+  const allSizes = useMemo(
+    () => Array.from(new Set(products.flatMap((product) => product.availableSizes))).sort(),
+    [products],
+  );
+
   const filteredProducts = useMemo(() => {
     const query = searchValue.trim().toLowerCase();
 
@@ -128,7 +130,7 @@ export default function CatalogScreen() {
     }
 
     return sorted;
-  }, [category, selectedBrands, selectedSizes, pricePreset, searchValue, sortBy]);
+  }, [products, category, selectedBrands, selectedSizes, pricePreset, searchValue, sortBy]);
 
   const currentSortLabel = SORT_OPTIONS.find((option) => option.id === sortBy)?.label ?? 'Сортировка';
 
@@ -221,7 +223,7 @@ export default function CatalogScreen() {
 
               <Text style={styles.groupTitle}>Размер</Text>
               <View style={styles.chipWrap}>
-                {ALL_SIZES.map((size) => (
+                {allSizes.map((size) => (
                   <BrandChip
                     key={size}
                     label={size}

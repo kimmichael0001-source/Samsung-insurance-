@@ -1,0 +1,125 @@
+-- CODE (Brand Code) — демо-каталог из 14 товаров.
+-- Выполняется после supabase/schema.sql. Идемпотентен (ON CONFLICT DO UPDATE),
+-- можно перезапускать. Даты created_at/expires_at заданы относительно
+-- момента запуска скрипта — так же, как в локальном фолбэке src/data/products.ts.
+
+insert into public.products
+  (id, brand, title, description, category, images, original_price, sale_price,
+   discount_percent, currency, available_sizes, condition, outlet_name, location,
+   created_at, expires_at, is_available, is_featured)
+values
+  ('p001', 'Lacoste', 'Поло классическое пике',
+   'Оригинальное поло Lacoste из фирменной ткани пике. Свободный крой, вышитый логотип крокодила на груди. Найдено в аутлете Yeoju Premium.',
+   'clothing',
+   array['https://picsum.photos/seed/code-p001-a/900/1200', 'https://picsum.photos/seed/code-p001-b/900/1200', 'https://picsum.photos/seed/code-p001-c/900/1200'],
+   45000, 27000, 40, '₸', array['S', 'M', 'L', 'XL'], 'new', 'Yeoju Premium Outlet', 'Ёджу, Южная Корея',
+   now() - interval '1 day', now() + interval '18 hours', true, true),
+
+  ('p002', 'Tommy Hilfiger', 'Куртка-бомбер утеплённая',
+   'Демисезонный бомбер с фирменной нашивкой на рукаве. Плотная подкладка, удобные карманы на молнии. Отличный вариант на прохладную погоду.',
+   'clothing',
+   array['https://picsum.photos/seed/code-p002-a/900/1200', 'https://picsum.photos/seed/code-p002-b/900/1200', 'https://picsum.photos/seed/code-p002-c/900/1200'],
+   98000, 58000, 41, '₸', array['M', 'L', 'XL', 'XXL'], 'new', 'Paju Premium Outlet', 'Пхаджу, Южная Корея',
+   now() - interval '2 days', now() + interval '30 hours', true, true),
+
+  ('p003', 'Ralph Lauren', 'Рубашка оксфорд слим',
+   'Хлопковая рубашка оксфорд с вышитым пони. Приталенный силуэт, подходит и для офиса, и для повседневной носки.',
+   'clothing',
+   array['https://picsum.photos/seed/code-p003-a/900/1200', 'https://picsum.photos/seed/code-p003-b/900/1200', 'https://picsum.photos/seed/code-p003-c/900/1200'],
+   62000, 37000, 40, '₸', array['S', 'M', 'L'], 'like_new', 'Yeoju Premium Outlet', 'Ёджу, Южная Корея',
+   now() - interval '3 days', now() + interval '2 days', true, false),
+
+  ('p004', 'Nike', 'Кроссовки Air Max',
+   'Беговые кроссовки с амортизирующей подошвой Air Max. Дышащий верх, устойчивая посадка стопы. Найдены новыми, в коробке.',
+   'shoes',
+   array['https://picsum.photos/seed/code-p004-a/900/1200', 'https://picsum.photos/seed/code-p004-b/900/1200', 'https://picsum.photos/seed/code-p004-c/900/1200'],
+   78000, 46000, 41, '₸', array['40', '41', '42', '43', '44'], 'new', 'Yeoju Premium Outlet', 'Ёджу, Южная Корея',
+   now() - interval '1 day', now() + interval '12 hours', true, true),
+
+  ('p005', 'Adidas', 'Кроссовки Samba OG',
+   'Культовая модель Samba из замши и кожи. Классическая три-полоски, резиновая подошва gum. Универсальная пара под любой образ.',
+   'shoes',
+   array['https://picsum.photos/seed/code-p005-a/900/1200', 'https://picsum.photos/seed/code-p005-b/900/1200', 'https://picsum.photos/seed/code-p005-c/900/1200'],
+   68000, 41000, 40, '₸', array['38', '39', '40', '41', '42', '43'], 'new', 'Busan Premium Outlet', 'Пусан, Южная Корея',
+   now() - interval '4 days', now() + interval '1 day', true, false),
+
+  ('p006', 'Polo', 'Сумка через плечо Pony Logo',
+   'Компактная сумка через плечо из экокожи с вышитым логотипом-пони. Регулируемый ремень, внутренний карман на молнии.',
+   'bags',
+   array['https://picsum.photos/seed/code-p006-a/900/1200', 'https://picsum.photos/seed/code-p006-b/900/1200', 'https://picsum.photos/seed/code-p006-c/900/1200'],
+   54000, 32000, 41, '₸', array['One size'], 'new', 'Paju Premium Outlet', 'Пхаджу, Южная Корея',
+   now() - interval '2 days', now() + interval '20 hours', true, true),
+
+  ('p007', 'Ralph Lauren', 'Рюкзак городской',
+   'Прочный рюкзак для города с отделением для ноутбука 15". Вышитый логотип пони, водоотталкивающая ткань.',
+   'bags',
+   array['https://picsum.photos/seed/code-p007-a/900/1200', 'https://picsum.photos/seed/code-p007-b/900/1200', 'https://picsum.photos/seed/code-p007-c/900/1200'],
+   71000, 44000, 38, '₸', array['One size'], 'excellent', 'Yeoju Premium Outlet', 'Ёджу, Южная Корея',
+   now() - interval '5 days', now() + interval '3 days', true, false),
+
+  ('p008', 'Tommy Hilfiger', 'Кепка с вышитым флагом',
+   'Классическая бейсболка с вышитым логотипом-флагом. Регулируемый ремешок, подходит под любой размер головы.',
+   'accessories',
+   array['https://picsum.photos/seed/code-p008-a/900/1200', 'https://picsum.photos/seed/code-p008-b/900/1200', 'https://picsum.photos/seed/code-p008-c/900/1200'],
+   22000, 13000, 41, '₸', array['One size'], 'new', 'Busan Premium Outlet', 'Пусан, Южная Корея',
+   now() - interval '1 day', now() + interval '15 hours', true, false),
+
+  ('p009', 'Nike', 'Ремень кожаный с пряжкой-свуш',
+   'Натуральная кожа, металлическая пряжка с фирменным знаком. Универсальная длина с возможностью подгонки.',
+   'accessories',
+   array['https://picsum.photos/seed/code-p009-a/900/1200', 'https://picsum.photos/seed/code-p009-b/900/1200', 'https://picsum.photos/seed/code-p009-c/900/1200'],
+   26000, 15500, 40, '₸', array['One size'], 'new', 'Yeoju Premium Outlet', 'Ёджу, Южная Корея',
+   now() - interval '3 days', now() + interval '2 days', true, false),
+
+  ('p010', 'Adidas', 'Спортивный костюм Track',
+   'Комплект: олимпийка и брюки из фирменной ткани трипстрайп. Прямой крой, эластичные манжеты и пояс на резинке.',
+   'clothing',
+   array['https://picsum.photos/seed/code-p010-a/900/1200', 'https://picsum.photos/seed/code-p010-b/900/1200', 'https://picsum.photos/seed/code-p010-c/900/1200'],
+   84000, 49000, 42, '₸', array['S', 'M', 'L', 'XL'], 'new', 'Paju Premium Outlet', 'Пхаджу, Южная Корея',
+   now() - interval '1 day', now() + interval '9 hours', true, true),
+
+  ('p011', 'New Balance', 'Кроссовки 574 замшевые',
+   'Культовая модель 574 из замши и сетки. Мягкая амортизирующая подошва ENCAP, фирменная буква "N" по бокам.',
+   'shoes',
+   array['https://picsum.photos/seed/code-p011-a/900/1200', 'https://picsum.photos/seed/code-p011-b/900/1200', 'https://picsum.photos/seed/code-p011-c/900/1200'],
+   58000, 35000, 40, '₸', array['40', '41', '42', '43', '44', '45'], 'new', 'Busan Premium Outlet', 'Пусан, Южная Корея',
+   now() - interval '6 days', now() + interval '4 days', true, false),
+
+  ('p012', 'Lacoste', 'Кроссовки кожаные низкие',
+   'Минималистичные кожаные кроссовки с перфорацией-крокодилом сбоку. Лёгкая подошва, комфортная посадка.',
+   'shoes',
+   array['https://picsum.photos/seed/code-p012-a/900/1200', 'https://picsum.photos/seed/code-p012-b/900/1200', 'https://picsum.photos/seed/code-p012-c/900/1200'],
+   64000, 38000, 41, '₸', array['40', '41', '42', '44', '45'], 'new', 'Yeoju Premium Outlet', 'Ёджу, Южная Корея',
+   now() - interval '2 days', now() + interval '26 hours', false, false),
+
+  ('p013', 'New Balance', 'Худи с вышитым логотипом',
+   'Плотный флисовый худи с вышитой буквой "N" на груди. Прямой крой, мягкая начёсанная изнанка, кулиска с фиксаторами.',
+   'clothing',
+   array['https://picsum.photos/seed/code-p013-a/900/1200', 'https://picsum.photos/seed/code-p013-b/900/1200', 'https://picsum.photos/seed/code-p013-c/900/1200'],
+   42000, 25000, 40, '₸', array['S', 'M', 'L', 'XL'], 'new', 'Paju Premium Outlet', 'Пхаджу, Южная Корея',
+   now() - interval '1 day', now() + interval '22 hours', true, false),
+
+  ('p014', 'Polo', 'Рубашка поло Pony',
+   'Хлопковое поло с вышитым логотипом-пони на груди. Классическая посадка, ребристый воротник и манжеты.',
+   'clothing',
+   array['https://picsum.photos/seed/code-p014-a/900/1200', 'https://picsum.photos/seed/code-p014-b/900/1200', 'https://picsum.photos/seed/code-p014-c/900/1200'],
+   48000, 29000, 40, '₸', array['S', 'M', 'L', 'XL'], 'new', 'Yeoju Premium Outlet', 'Ёджу, Южная Корея',
+   now() - interval '2 days', now() + interval '1 day', true, true)
+
+on conflict (id) do update set
+  brand = excluded.brand,
+  title = excluded.title,
+  description = excluded.description,
+  category = excluded.category,
+  images = excluded.images,
+  original_price = excluded.original_price,
+  sale_price = excluded.sale_price,
+  discount_percent = excluded.discount_percent,
+  currency = excluded.currency,
+  available_sizes = excluded.available_sizes,
+  condition = excluded.condition,
+  outlet_name = excluded.outlet_name,
+  location = excluded.location,
+  expires_at = excluded.expires_at,
+  is_available = excluded.is_available,
+  is_featured = excluded.is_featured;

@@ -5,7 +5,6 @@ import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { OrderStatusBadge, PriceBlock } from '../src/components';
-import { getProductById } from '../src/data/products';
 import { useAppState } from '../src/store/AppStateContext';
 import { colors, radius, spacing, typography } from '../src/theme';
 import type { Order } from '../src/types';
@@ -13,9 +12,10 @@ import type { Order } from '../src/types';
 export default function OrderConfirmationScreen() {
   const { productId, size } = useLocalSearchParams<{ productId: string; size: string }>();
   const router = useRouter();
-  const { createOrder } = useAppState();
+  const { getProductById, createOrder } = useAppState();
 
   const [createdOrder, setCreatedOrder] = useState<Order | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const product = getProductById(productId ?? '');
 
   if (!product) {
@@ -28,9 +28,13 @@ export default function OrderConfirmationScreen() {
     );
   }
 
-  const handleConfirm = () => {
-    const order = createOrder({ productId: product.id, size: size ?? product.availableSizes[0] });
-    setCreatedOrder(order);
+  const handleConfirm = async () => {
+    setIsSubmitting(true);
+    const order = await createOrder({ productId: product.id, size: size ?? product.availableSizes[0] });
+    setIsSubmitting(false);
+    if (order) {
+      setCreatedOrder(order);
+    }
   };
 
   if (createdOrder) {
@@ -97,10 +101,16 @@ export default function OrderConfirmationScreen() {
       </View>
 
       <View style={styles.footer}>
-        <Pressable style={styles.primaryButton} onPress={handleConfirm}>
-          <Text style={styles.primaryButtonText}>Подтвердить заявку</Text>
+        <Pressable
+          style={[styles.primaryButton, isSubmitting && styles.primaryButtonDisabled]}
+          onPress={handleConfirm}
+          disabled={isSubmitting}
+        >
+          <Text style={styles.primaryButtonText}>
+            {isSubmitting ? 'Оформляем…' : 'Подтвердить заявку'}
+          </Text>
         </Pressable>
-        <Pressable style={styles.secondaryButton} onPress={() => router.back()}>
+        <Pressable style={styles.secondaryButton} onPress={() => router.back()} disabled={isSubmitting}>
           <Text style={styles.secondaryButtonText}>Отмена</Text>
         </Pressable>
       </View>
@@ -188,6 +198,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.accent,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  primaryButtonDisabled: {
+    opacity: 0.6,
   },
   primaryButtonText: {
     color: colors.textInverse,

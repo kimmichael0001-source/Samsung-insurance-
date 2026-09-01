@@ -22,10 +22,15 @@ export default function CheckoutScreen() {
   const router = useRouter();
   const { cartItems, cartTotal, checkoutCart } = useAppState();
   const [createdOrders, setCreatedOrders] = useState<Order[] | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleConfirm = () => {
-    const orders = checkoutCart();
-    setCreatedOrders(orders);
+  const handleConfirm = async () => {
+    setIsSubmitting(true);
+    const orders = await checkoutCart();
+    setIsSubmitting(false);
+    if (orders.length > 0) {
+      setCreatedOrders(orders);
+    }
   };
 
   if (createdOrders) {
@@ -120,8 +125,12 @@ export default function CheckoutScreen() {
           <Text style={styles.totalLabel}>Итого</Text>
           <Text style={styles.totalValue}>{formatPrice(cartTotal)}</Text>
         </View>
-        <Pressable style={styles.primaryButton} onPress={handleConfirm}>
-          <Text style={styles.primaryButtonText}>Подтвердить заказ</Text>
+        <Pressable
+          style={[styles.primaryButton, isSubmitting && styles.primaryButtonDisabled]}
+          onPress={handleConfirm}
+          disabled={isSubmitting}
+        >
+          <Text style={styles.primaryButtonText}>{isSubmitting ? 'Оформляем…' : 'Подтвердить заказ'}</Text>
         </Pressable>
       </View>
     </SafeAreaView>
@@ -268,6 +277,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.accent,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  primaryButtonDisabled: {
+    opacity: 0.6,
   },
   primaryButtonText: {
     color: colors.textInverse,

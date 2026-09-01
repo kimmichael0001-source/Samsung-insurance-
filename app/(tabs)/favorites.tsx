@@ -4,17 +4,16 @@ import { FlatList, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { CartButton, EmptyState, ProductCard, ScreenHeader } from '../../src/components';
-import { products } from '../../src/data/products';
 import { useAppState } from '../../src/store/AppStateContext';
 import { colors, spacing } from '../../src/theme';
 
 export default function FavoritesScreen() {
   const router = useRouter();
-  const { favoriteIds, isFavorite, toggleFavorite, addToCart, cartCount } = useAppState();
+  const { products, favoriteIds, isFavorite, toggleFavorite, addToCart, cartCount } = useAppState();
 
   const favoriteProducts = useMemo(
     () => products.filter((product) => favoriteIds.includes(product.id)),
-    [favoriteIds],
+    [products, favoriteIds],
   );
 
   return (

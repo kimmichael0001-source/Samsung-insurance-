@@ -5,13 +5,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { BrandChip, CartButton, ProductCard, SearchBar } from '../../src/components';
 import { brands } from '../../src/data/brands';
-import { products } from '../../src/data/products';
 import { useAppState } from '../../src/store/AppStateContext';
 import { colors, radius, spacing, typography } from '../../src/theme';
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { isFavorite, toggleFavorite, addToCart, cartCount } = useAppState();
+  const { products, isFavorite, toggleFavorite, addToCart, cartCount } = useAppState();
 
   const newArrivals = useMemo(
     () =>
@@ -19,7 +18,7 @@ export default function HomeScreen() {
         .filter((product) => product.isAvailable)
         .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
         .slice(0, 6),
-    [],
+    [products],
   );
 
   const endingSoon = useMemo(
@@ -28,7 +27,7 @@ export default function HomeScreen() {
         .filter((product) => product.isAvailable)
         .sort((a, b) => new Date(a.expiresAt).getTime() - new Date(b.expiresAt).getTime())
         .slice(0, 6),
-    [],
+    [products],
   );
 
   const openCatalog = (params?: Record<string, string>) => {

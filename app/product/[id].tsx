@@ -17,7 +17,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { CartButton, DiscountBadge, PriceBlock, ScreenHeader, SizeSelector } from '../../src/components';
 import { conditionLabels } from '../../src/data/labels';
-import { getProductById } from '../../src/data/products';
 import { useAppState } from '../../src/store/AppStateContext';
 import { colors, radius, spacing, typography } from '../../src/theme';
 import { getTimeRemaining } from '../../src/utils';
@@ -33,9 +32,9 @@ export default function ProductScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const { width } = useWindowDimensions();
-  const { isFavorite, toggleFavorite, addToCart, cartCount } = useAppState();
+  const { getProductById, isFavorite, toggleFavorite, addToCart, cartCount } = useAppState();
 
-  const product = useMemo(() => getProductById(id ?? ''), [id]);
+  const product = useMemo(() => getProductById(id ?? ''), [id, getProductById]);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(() =>
