@@ -20,6 +20,8 @@ export default function RootLayout() {
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="product/[id]" options={{ presentation: 'card' }} />
           <Stack.Screen name="order-confirmation" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="cart" options={{ presentation: 'modal' }} />
+          <Stack.Screen name="checkout" options={{ presentation: 'modal' }} />
         </Stack>
       </AppStateProvider>
     </SafeAreaProvider>

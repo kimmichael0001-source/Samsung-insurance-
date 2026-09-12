@@ -1,4 +1,5 @@
 export * from './BrandChip';
+export * from './CartButton';
 export * from './DiscountBadge';
 export * from './EmptyState';
 export * from './FilterButton';

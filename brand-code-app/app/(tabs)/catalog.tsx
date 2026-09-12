@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { FlatList, Modal, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { BrandChip, EmptyState, FilterButton, ProductCard, ScreenHeader, SearchBar } from '../../src/components';
+import { BrandChip, CartButton, EmptyState, FilterButton, ProductCard, ScreenHeader, SearchBar } from '../../src/components';
 import { brands } from '../../src/data/brands';
 import { categoryLabels } from '../../src/data/labels';
 import { products } from '../../src/data/products';
@@ -50,7 +50,7 @@ function matchesPricePreset(price: number, preset: PricePreset): boolean {
 export default function CatalogScreen() {
   const router = useRouter();
   const params = useLocalSearchParams<{ brand?: string; sort?: string }>();
-  const { isFavorite, toggleFavorite } = useAppState();
+  const { isFavorite, toggleFavorite, addToCart, cartCount } = useAppState();
 
   const [searchValue, setSearchValue] = useState('');
   const [category, setCategory] = useState<ProductCategory | 'all'>('all');
@@ -134,7 +134,11 @@ export default function CatalogScreen() {
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['top']}>
-      <ScreenHeader title="Каталог" subtitle={`${filteredProducts.length} товаров`} />
+      <ScreenHeader
+        title="Каталог"
+        subtitle={`${filteredProducts.length} товаров`}
+        rightElement={<CartButton count={cartCount} onPress={() => router.push('/cart')} />}
+      />
 
       <View style={styles.searchWrap}>
         <SearchBar value={searchValue} onChangeText={setSearchValue} />
@@ -186,6 +190,7 @@ export default function CatalogScreen() {
             style={styles.card}
             isFavorite={isFavorite(item.id)}
             onToggleFavorite={() => toggleFavorite(item.id)}
+            onQuickAdd={(size) => addToCart({ productId: item.id, size })}
             onPress={() => router.push(`/product/${item.id}`)}
           />
         )}

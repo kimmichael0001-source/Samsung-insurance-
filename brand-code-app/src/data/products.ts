@@ -8,6 +8,14 @@ const daysAgo = (days: number) => new Date(now - days * DAY).toISOString();
 const inHours = (hours: number) => new Date(now + hours * HOUR).toISOString();
 const inDays = (days: number) => new Date(now + days * DAY).toISOString();
 
+function galleryFor(seed: string): string[] {
+  return [
+    `https://picsum.photos/seed/${seed}-a/900/1200`,
+    `https://picsum.photos/seed/${seed}-b/900/1200`,
+    `https://picsum.photos/seed/${seed}-c/900/1200`,
+  ];
+}
+
 export const products: Product[] = [
   {
     id: 'p001',
@@ -16,10 +24,7 @@ export const products: Product[] = [
     description:
       'Оригинальное поло Lacoste из фирменной ткани пике. Свободный крой, вышитый логотип крокодила на груди. Найдено в аутлете Yeoju Premium.',
     category: 'clothing',
-    images: [
-      'https://picsum.photos/seed/code-p001-a/900/1200',
-      'https://picsum.photos/seed/code-p001-b/900/1200',
-    ],
+    images: galleryFor('code-p001'),
     originalPrice: 45000,
     salePrice: 27000,
     discountPercent: 40,
@@ -40,10 +45,7 @@ export const products: Product[] = [
     description:
       'Демисезонный бомбер с фирменной нашивкой на рукаве. Плотная подкладка, удобные карманы на молнии. Отличный вариант на прохладную погоду.',
     category: 'clothing',
-    images: [
-      'https://picsum.photos/seed/code-p002-a/900/1200',
-      'https://picsum.photos/seed/code-p002-b/900/1200',
-    ],
+    images: galleryFor('code-p002'),
     originalPrice: 98000,
     salePrice: 58000,
     discountPercent: 41,
@@ -64,10 +66,7 @@ export const products: Product[] = [
     description:
       'Хлопковая рубашка оксфорд с вышитым пони. Приталенный силуэт, подходит и для офиса, и для повседневной носки.',
     category: 'clothing',
-    images: [
-      'https://picsum.photos/seed/code-p003-a/900/1200',
-      'https://picsum.photos/seed/code-p003-b/900/1200',
-    ],
+    images: galleryFor('code-p003'),
     originalPrice: 62000,
     salePrice: 37000,
     discountPercent: 40,
@@ -88,10 +87,7 @@ export const products: Product[] = [
     description:
       'Беговые кроссовки с амортизирующей подошвой Air Max. Дышащий верх, устойчивая посадка стопы. Найдены новыми, в коробке.',
     category: 'shoes',
-    images: [
-      'https://picsum.photos/seed/code-p004-a/900/1200',
-      'https://picsum.photos/seed/code-p004-b/900/1200',
-    ],
+    images: galleryFor('code-p004'),
     originalPrice: 78000,
     salePrice: 46000,
     discountPercent: 41,
@@ -112,10 +108,7 @@ export const products: Product[] = [
     description:
       'Культовая модель Samba из замши и кожи. Классическая три-полоски, резиновая подошва gum. Универсальная пара под любой образ.',
     category: 'shoes',
-    images: [
-      'https://picsum.photos/seed/code-p005-a/900/1200',
-      'https://picsum.photos/seed/code-p005-b/900/1200',
-    ],
+    images: galleryFor('code-p005'),
     originalPrice: 68000,
     salePrice: 41000,
     discountPercent: 40,
@@ -131,15 +124,12 @@ export const products: Product[] = [
   },
   {
     id: 'p006',
-    brand: 'Calvin Klein',
-    title: 'Сумка через плечо CK Logo',
+    brand: 'Polo',
+    title: 'Сумка через плечо Pony Logo',
     description:
-      'Компактная сумка через плечо из экокожи с фирменным лого. Регулируемый ремень, внутренний карман на молнии.',
+      'Компактная сумка через плечо из экокожи с вышитым логотипом-пони. Регулируемый ремень, внутренний карман на молнии.',
     category: 'bags',
-    images: [
-      'https://picsum.photos/seed/code-p006-a/900/1200',
-      'https://picsum.photos/seed/code-p006-b/900/1200',
-    ],
+    images: galleryFor('code-p006'),
     originalPrice: 54000,
     salePrice: 32000,
     discountPercent: 41,
@@ -160,10 +150,7 @@ export const products: Product[] = [
     description:
       'Прочный рюкзак для города с отделением для ноутбука 15". Вышитый логотип пони, водоотталкивающая ткань.',
     category: 'bags',
-    images: [
-      'https://picsum.photos/seed/code-p007-a/900/1200',
-      'https://picsum.photos/seed/code-p007-b/900/1200',
-    ],
+    images: galleryFor('code-p007'),
     originalPrice: 71000,
     salePrice: 44000,
     discountPercent: 38,
@@ -184,10 +171,7 @@ export const products: Product[] = [
     description:
       'Классическая бейсболка с вышитым логотипом-флагом. Регулируемый ремешок, подходит под любой размер головы.',
     category: 'accessories',
-    images: [
-      'https://picsum.photos/seed/code-p008-a/900/1200',
-      'https://picsum.photos/seed/code-p008-b/900/1200',
-    ],
+    images: galleryFor('code-p008'),
     originalPrice: 22000,
     salePrice: 13000,
     discountPercent: 41,
@@ -208,10 +192,7 @@ export const products: Product[] = [
     description:
       'Натуральная кожа, металлическая пряжка с фирменным знаком. Универсальная длина с возможностью подгонки.',
     category: 'accessories',
-    images: [
-      'https://picsum.photos/seed/code-p009-a/900/1200',
-      'https://picsum.photos/seed/code-p009-b/900/1200',
-    ],
+    images: galleryFor('code-p009'),
     originalPrice: 26000,
     salePrice: 15500,
     discountPercent: 40,
@@ -232,10 +213,7 @@ export const products: Product[] = [
     description:
       'Комплект: олимпийка и брюки из фирменной ткани трипстрайп. Прямой крой, эластичные манжеты и пояс на резинке.',
     category: 'clothing',
-    images: [
-      'https://picsum.photos/seed/code-p010-a/900/1200',
-      'https://picsum.photos/seed/code-p010-b/900/1200',
-    ],
+    images: galleryFor('code-p010'),
     originalPrice: 84000,
     salePrice: 49000,
     discountPercent: 42,
@@ -251,20 +229,17 @@ export const products: Product[] = [
   },
   {
     id: 'p011',
-    brand: 'Calvin Klein',
-    title: 'Джинсы прямого кроя',
+    brand: 'New Balance',
+    title: 'Кроссовки 574 замшевые',
     description:
-      'Плотный деним, прямой силуэт, средняя посадка. Фирменная нашивка на заднем кармане.',
-    category: 'clothing',
-    images: [
-      'https://picsum.photos/seed/code-p011-a/900/1200',
-      'https://picsum.photos/seed/code-p011-b/900/1200',
-    ],
+      'Культовая модель 574 из замши и сетки. Мягкая амортизирующая подошва ENCAP, фирменная буква "N" по бокам.',
+    category: 'shoes',
+    images: galleryFor('code-p011'),
     originalPrice: 58000,
     salePrice: 35000,
     discountPercent: 40,
     currency: '₸',
-    availableSizes: ['29', '30', '31', '32', '33', '34'],
+    availableSizes: ['40', '41', '42', '43', '44', '45'],
     condition: 'new',
     outletName: 'Busan Premium Outlet',
     location: 'Пусан, Южная Корея',
@@ -280,10 +255,7 @@ export const products: Product[] = [
     description:
       'Минималистичные кожаные кроссовки с перфорацией-крокодилом сбоку. Лёгкая подошва, комфортная посадка.',
     category: 'shoes',
-    images: [
-      'https://picsum.photos/seed/code-p012-a/900/1200',
-      'https://picsum.photos/seed/code-p012-b/900/1200',
-    ],
+    images: galleryFor('code-p012'),
     originalPrice: 64000,
     salePrice: 38000,
     discountPercent: 41,
@@ -296,6 +268,48 @@ export const products: Product[] = [
     expiresAt: inHours(26),
     isAvailable: false,
     isFeatured: false,
+  },
+  {
+    id: 'p013',
+    brand: 'New Balance',
+    title: 'Худи с вышитым логотипом',
+    description:
+      'Плотный флисовый худи с вышитой буквой "N" на груди. Прямой крой, мягкая начёсанная изнанка, кулиска с фиксаторами.',
+    category: 'clothing',
+    images: galleryFor('code-p013'),
+    originalPrice: 42000,
+    salePrice: 25000,
+    discountPercent: 40,
+    currency: '₸',
+    availableSizes: ['S', 'M', 'L', 'XL'],
+    condition: 'new',
+    outletName: 'Paju Premium Outlet',
+    location: 'Пхаджу, Южная Корея',
+    createdAt: daysAgo(1),
+    expiresAt: inHours(22),
+    isAvailable: true,
+    isFeatured: false,
+  },
+  {
+    id: 'p014',
+    brand: 'Polo',
+    title: 'Рубашка поло Pony',
+    description:
+      'Хлопковое поло с вышитым логотипом-пони на груди. Классическая посадка, ребристый воротник и манжеты.',
+    category: 'clothing',
+    images: galleryFor('code-p014'),
+    originalPrice: 48000,
+    salePrice: 29000,
+    discountPercent: 40,
+    currency: '₸',
+    availableSizes: ['S', 'M', 'L', 'XL'],
+    condition: 'new',
+    outletName: 'Yeoju Premium Outlet',
+    location: 'Ёджу, Южная Корея',
+    createdAt: daysAgo(2),
+    expiresAt: inDays(1),
+    isAvailable: true,
+    isFeatured: true,
   },
 ];
 
