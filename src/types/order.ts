@@ -19,4 +19,9 @@ export interface Order {
   currency: string;
   createdAt: string;
   status: OrderStatus;
+  shippingCountry: string | null;
+  shippingCost: number;
+  estimatedDeliveryMinDays: number | null;
+  estimatedDeliveryMaxDays: number | null;
+  trackingNumber: string | null;
 }

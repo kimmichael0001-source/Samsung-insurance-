@@ -1,9 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Image } from 'expo-image';
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   Alert,
-  Image,
   NativeScrollEvent,
   NativeSyntheticEvent,
   Pressable,
@@ -17,6 +17,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { CartButton, DiscountBadge, PriceBlock, ScreenHeader, SizeSelector } from '../../src/components';
 import { conditionLabels } from '../../src/data/labels';
+import { AnalyticsEvents, track } from '../../src/lib/analytics';
+import { fetchVariantStock } from '../../src/services/variants';
 import { useAppState } from '../../src/store/AppStateContext';
 import { colors, radius, spacing, typography } from '../../src/theme';
 import { getTimeRemaining } from '../../src/utils';
@@ -37,9 +39,15 @@ export default function ProductScreen() {
   const product = useMemo(() => getProductById(id ?? ''), [id, getProductById]);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [variantStock, setVariantStock] = useState<Record<string, number> | null>(null);
   const [timeRemaining, setTimeRemaining] = useState(() =>
     product ? getTimeRemaining(product.expiresAt) : null,
   );
+
+  useEffect(() => {
+    if (!product) return;
+    track(AnalyticsEvents.VIEW_PRODUCT, { productId: product.id, brand: product.brand });
+  }, [product]);
 
   useEffect(() => {
     if (!product) return;
@@ -47,6 +55,18 @@ export default function ProductScreen() {
       setTimeRemaining(getTimeRemaining(product.expiresAt));
     }, 60000);
     return () => clearInterval(intervalId);
+  }, [product]);
+
+  useEffect(() => {
+    if (!product) return;
+    let cancelled = false;
+    setVariantStock(null);
+    fetchVariantStock(product.id).then((stock) => {
+      if (!cancelled) setVariantStock(stock);
+    });
+    return () => {
+      cancelled = true;
+    };
   }, [product]);
 
   if (!product) {
@@ -59,6 +79,10 @@ export default function ProductScreen() {
       </SafeAreaView>
     );
   }
+
+  const outOfStockSizes = variantStock
+    ? product.availableSizes.filter((size) => (variantStock[size] ?? 0) <= 0)
+    : [];
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const index = Math.round(event.nativeEvent.contentOffset.x / width);
@@ -99,7 +123,13 @@ export default function ProductScreen() {
             onMomentumScrollEnd={handleScroll}
           >
             {product.images.map((uri, index) => (
-              <Image key={`${uri}-${index}`} source={{ uri }} style={[styles.image, { width }]} />
+              <Image
+                key={`${uri}-${index}`}
+                source={{ uri }}
+                style={[styles.image, { width }]}
+                contentFit="cover"
+                transition={150}
+              />
             ))}
           </ScrollView>
           <View style={styles.dotsRow}>
@@ -148,7 +178,12 @@ export default function ProductScreen() {
           <Text style={styles.description}>{product.description}</Text>
 
           <Text style={styles.sectionTitle}>Размер</Text>
-          <SizeSelector sizes={product.availableSizes} selectedSize={selectedSize} onSelect={setSelectedSize} />
+          <SizeSelector
+            sizes={product.availableSizes}
+            selectedSize={selectedSize}
+            onSelect={setSelectedSize}
+            outOfStockSizes={outOfStockSizes}
+          />
 
           <View style={styles.warningBox}>
             <Ionicons name="alert-circle-outline" size={18} color={colors.warning} />

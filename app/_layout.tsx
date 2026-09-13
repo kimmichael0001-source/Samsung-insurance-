@@ -4,17 +4,20 @@ import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { ErrorBoundary } from '../src/components';
 import { AppStateProvider, useAppState } from '../src/store/AppStateContext';
 import { colors } from '../src/theme';
 
 export default function RootLayout() {
   return (
-    <SafeAreaProvider>
-      <AppStateProvider>
-        <StatusBar style="dark" />
-        <RootNavigator />
-      </AppStateProvider>
-    </SafeAreaProvider>
+    <ErrorBoundary>
+      <SafeAreaProvider>
+        <AppStateProvider>
+          <StatusBar style="dark" />
+          <RootNavigator />
+        </AppStateProvider>
+      </SafeAreaProvider>
+    </ErrorBoundary>
   );
 }
 

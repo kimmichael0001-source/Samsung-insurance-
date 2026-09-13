@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
+import { Image } from 'expo-image';
 import React, { useState } from 'react';
-import { Alert, Image, Modal, Platform, Pressable, StyleSheet, Text, View, ViewStyle } from 'react-native';
+import { Alert, Modal, Platform, Pressable, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 import { colors, radius, spacing, typography } from '../theme';
 import type { Product } from '../types';
@@ -47,7 +48,7 @@ export function ProductCard({
         style={({ pressed }) => [styles.card, style, pressed && styles.cardPressed]}
       >
         <View style={styles.imageWrap}>
-          <Image source={{ uri: product.images[0] }} style={styles.image} />
+          <Image source={{ uri: product.images[0] }} style={styles.image} contentFit="cover" transition={150} />
           <View style={styles.badgeSlot}>
             <DiscountBadge percent={product.discountPercent} />
           </View>

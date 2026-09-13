@@ -1,22 +1,42 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useState } from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image } from 'expo-image';
+import React, { useEffect, useState } from 'react';
+import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { OrderStatusBadge, PriceBlock } from '../src/components';
+import { OrderStatusBadge, PriceBlock, ShippingOptionList } from '../src/components';
 import { useAppState } from '../src/store/AppStateContext';
+import type { ShippingSelection } from '../src/store/AppStateContext';
 import { colors, radius, spacing, typography } from '../src/theme';
-import type { Order } from '../src/types';
+import type { Order, ShippingDestination } from '../src/types';
+import { formatPrice } from '../src/utils';
+
+function toSelection(destination: ShippingDestination): ShippingSelection {
+  return {
+    countryCode: destination.countryCode,
+    cost: destination.cost,
+    etaMinDays: destination.etaMinDays,
+    etaMaxDays: destination.etaMaxDays,
+  };
+}
 
 export default function OrderConfirmationScreen() {
   const { productId, size } = useLocalSearchParams<{ productId: string; size: string }>();
   const router = useRouter();
-  const { getProductById, createOrder } = useAppState();
+  const { getProductById, createOrder, shippingDestinations } = useAppState();
 
+  const [selectedDestination, setSelectedDestination] = useState<ShippingDestination | null>(null);
   const [createdOrder, setCreatedOrder] = useState<Order | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const product = getProductById(productId ?? '');
+
+  useEffect(() => {
+    if (selectedDestination || shippingDestinations.length === 0) return;
+    setSelectedDestination(
+      shippingDestinations.find((destination) => destination.countryCode === 'KZ') ?? shippingDestinations[0],
+    );
+  }, [shippingDestinations, selectedDestination]);
 
   if (!product) {
     return (
@@ -29,11 +49,24 @@ export default function OrderConfirmationScreen() {
   }
 
   const handleConfirm = async () => {
+    if (!selectedDestination) return;
+
     setIsSubmitting(true);
-    const order = await createOrder({ productId: product.id, size: size ?? product.availableSizes[0] });
-    setIsSubmitting(false);
-    if (order) {
-      setCreatedOrder(order);
+    try {
+      const order = await createOrder(
+        { productId: product.id, size: size ?? product.availableSizes[0] },
+        toSelection(selectedDestination),
+      );
+      if (order) {
+        setCreatedOrder(order);
+      }
+    } catch (error) {
+      Alert.alert(
+        'Не удалось оформить заявку',
+        error instanceof Error ? error.message : 'Попробуйте ещё раз чуть позже.',
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -80,31 +113,50 @@ export default function OrderConfirmationScreen() {
         </Pressable>
       </View>
 
-      <View style={styles.productCard}>
-        <Image source={{ uri: product.images[0] }} style={styles.image} />
-        <View style={styles.productInfo}>
-          <Text style={styles.brand}>{product.brand}</Text>
-          <Text style={styles.title} numberOfLines={2}>
-            {product.title}
-          </Text>
-          <Text style={styles.size}>Размер: {size}</Text>
-          <PriceBlock originalPrice={product.originalPrice} salePrice={product.salePrice} currency={product.currency} />
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+        <View style={styles.productCard}>
+          <Image source={{ uri: product.images[0] }} style={styles.image} contentFit="cover" transition={150} />
+          <View style={styles.productInfo}>
+            <Text style={styles.brand}>{product.brand}</Text>
+            <Text style={styles.title} numberOfLines={2}>
+              {product.title}
+            </Text>
+            <Text style={styles.size}>Размер: {size}</Text>
+            <PriceBlock originalPrice={product.originalPrice} salePrice={product.salePrice} currency={product.currency} />
+          </View>
         </View>
-      </View>
 
-      <View style={styles.noticeBox}>
-        <Ionicons name="information-circle-outline" size={18} color={colors.textSecondary} />
-        <Text style={styles.noticeText}>
-          Заявка получит статус «Ожидает подтверждения». Оплата не производится — байер свяжется с вами
-          после проверки наличия товара в аутлете.
-        </Text>
-      </View>
+        <Text style={styles.sectionTitle}>Страна доставки</Text>
+        {shippingDestinations.length > 0 ? (
+          <ShippingOptionList
+            destinations={shippingDestinations}
+            selectedCountryCode={selectedDestination?.countryCode ?? null}
+            onSelect={setSelectedDestination}
+          />
+        ) : (
+          <Text style={styles.size}>Загружаем варианты доставки…</Text>
+        )}
+
+        <View style={styles.noticeBox}>
+          <Ionicons name="information-circle-outline" size={18} color={colors.textSecondary} />
+          <Text style={styles.noticeText}>
+            Заявка получит статус «Ожидает подтверждения». Оплата не производится — байер свяжется с вами
+            после проверки наличия товара в аутлете.
+          </Text>
+        </View>
+      </ScrollView>
 
       <View style={styles.footer}>
+        {selectedDestination ? (
+          <View style={styles.totalRow}>
+            <Text style={styles.totalLabel}>Товар + доставка</Text>
+            <Text style={styles.totalValue}>{formatPrice(product.salePrice + selectedDestination.cost)}</Text>
+          </View>
+        ) : null}
         <Pressable
-          style={[styles.primaryButton, isSubmitting && styles.primaryButtonDisabled]}
+          style={[styles.primaryButton, (isSubmitting || !selectedDestination) && styles.primaryButtonDisabled]}
           onPress={handleConfirm}
-          disabled={isSubmitting}
+          disabled={isSubmitting || !selectedDestination}
         >
           <Text style={styles.primaryButtonText}>
             {isSubmitting ? 'Оформляем…' : 'Подтвердить заявку'}
@@ -141,10 +193,18 @@ const styles = StyleSheet.create({
   headerTitle: {
     ...typography.h2,
   },
+  scrollContent: {
+    paddingHorizontal: spacing.xl,
+    paddingBottom: spacing.xl,
+  },
+  sectionTitle: {
+    ...typography.h3,
+    marginTop: spacing.xl,
+    marginBottom: spacing.sm,
+  },
   productCard: {
     flexDirection: 'row',
     gap: spacing.md,
-    marginHorizontal: spacing.xl,
     padding: spacing.lg,
     backgroundColor: colors.surface,
     borderRadius: radius.md,
@@ -175,7 +235,6 @@ const styles = StyleSheet.create({
   noticeBox: {
     flexDirection: 'row',
     gap: spacing.sm,
-    marginHorizontal: spacing.xl,
     marginTop: spacing.xl,
     padding: spacing.lg,
     backgroundColor: colors.surfaceMuted,
@@ -187,10 +246,25 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   footer: {
-    marginTop: 'auto',
     paddingHorizontal: spacing.xl,
-    paddingVertical: spacing.xl,
+    paddingTop: spacing.lg,
+    paddingBottom: spacing.xl,
     gap: spacing.md,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+    backgroundColor: colors.surface,
+  },
+  totalRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  totalLabel: {
+    ...typography.body,
+    color: colors.textSecondary,
+  },
+  totalValue: {
+    ...typography.h3,
   },
   primaryButton: {
     height: 52,

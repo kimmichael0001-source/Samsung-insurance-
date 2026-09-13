@@ -7,20 +7,32 @@ interface SizeSelectorProps {
   sizes: string[];
   selectedSize?: string | null;
   onSelect: (size: string) => void;
+  /** Sizes to show as unavailable (e.g. zero stock) — not selectable. */
+  outOfStockSizes?: string[];
 }
 
-export function SizeSelector({ sizes, selectedSize, onSelect }: SizeSelectorProps) {
+export function SizeSelector({ sizes, selectedSize, onSelect, outOfStockSizes }: SizeSelectorProps) {
   return (
     <View style={styles.wrap}>
       {sizes.map((size) => {
         const selected = size === selectedSize;
+        const outOfStock = outOfStockSizes?.includes(size) ?? false;
         return (
           <Pressable
             key={size}
             onPress={() => onSelect(size)}
-            style={[styles.item, selected && styles.itemSelected]}
+            disabled={outOfStock}
+            style={[styles.item, selected && styles.itemSelected, outOfStock && styles.itemOutOfStock]}
           >
-            <Text style={[styles.label, selected && styles.labelSelected]}>{size}</Text>
+            <Text
+              style={[
+                styles.label,
+                selected && styles.labelSelected,
+                outOfStock && styles.labelOutOfStock,
+              ]}
+            >
+              {size}
+            </Text>
           </Pressable>
         );
       })}
@@ -49,6 +61,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.textPrimary,
     borderColor: colors.textPrimary,
   },
+  itemOutOfStock: {
+    backgroundColor: colors.surfaceMuted,
+    borderColor: colors.border,
+  },
   label: {
     fontSize: 14,
     fontWeight: '600',
@@ -56,5 +72,9 @@ const styles = StyleSheet.create({
   },
   labelSelected: {
     color: colors.textInverse,
+  },
+  labelOutOfStock: {
+    color: colors.textMuted,
+    textDecorationLine: 'line-through',
   },
 });

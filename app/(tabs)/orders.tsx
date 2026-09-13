@@ -1,12 +1,13 @@
+import { Image } from 'expo-image';
 import React from 'react';
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { EmptyState, OrderStatusBadge, PriceBlock, ScreenHeader } from '../../src/components';
 import { orderStatusPipeline } from '../../src/data/labels';
 import { useAppState } from '../../src/store/AppStateContext';
 import { colors, radius, spacing, typography } from '../../src/theme';
-import type { Order } from '../../src/types';
+import type { Order, ShippingDestination } from '../../src/types';
 import { formatShortDate } from '../../src/utils';
 
 const STEP_LABELS = ['Ожидает', 'Выкуплен', 'Склад', 'В пути', 'Готов'];
@@ -48,7 +49,34 @@ function OrderProgress({ status }: { status: Order['status'] }) {
   );
 }
 
-function OrderCard({ order }: { order: Order }) {
+function ShippingInfo({ order, destinations }: { order: Order; destinations: ShippingDestination[] }) {
+  if (!order.shippingCountry) return null;
+
+  const destination = destinations.find((item) => item.countryCode === order.shippingCountry);
+  const countryLabel = destination?.countryName ?? order.shippingCountry;
+
+  return (
+    <View style={styles.shippingBox}>
+      <View style={styles.shippingRow}>
+        <Text style={styles.shippingLabel}>Доставка</Text>
+        <Text style={styles.shippingValue}>
+          {countryLabel}
+          {order.estimatedDeliveryMinDays && order.estimatedDeliveryMaxDays
+            ? ` · ${order.estimatedDeliveryMinDays}–${order.estimatedDeliveryMaxDays} дн.`
+            : ''}
+        </Text>
+      </View>
+      {order.trackingNumber ? (
+        <View style={styles.shippingRow}>
+          <Text style={styles.shippingLabel}>Трек-номер</Text>
+          <Text style={styles.shippingValue}>{order.trackingNumber}</Text>
+        </View>
+      ) : null}
+    </View>
+  );
+}
+
+function OrderCard({ order, destinations }: { order: Order; destinations: ShippingDestination[] }) {
   return (
     <View style={styles.card}>
       <View style={styles.cardHeader}>
@@ -57,7 +85,7 @@ function OrderCard({ order }: { order: Order }) {
       </View>
 
       <View style={styles.cardBody}>
-        <Image source={{ uri: order.productImage }} style={styles.image} />
+        <Image source={{ uri: order.productImage }} style={styles.image} contentFit="cover" transition={150} />
         <View style={styles.cardInfo}>
           <Text style={styles.brand}>{order.productBrand}</Text>
           <Text style={styles.title} numberOfLines={2}>
@@ -73,12 +101,13 @@ function OrderCard({ order }: { order: Order }) {
       </View>
 
       <OrderProgress status={order.status} />
+      <ShippingInfo order={order} destinations={destinations} />
     </View>
   );
 }
 
 export default function OrdersScreen() {
-  const { orders } = useAppState();
+  const { orders, shippingDestinations } = useAppState();
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['top']}>
@@ -96,7 +125,7 @@ export default function OrdersScreen() {
             description="Оформите заявку на товар в каталоге — она появится здесь"
           />
         }
-        renderItem={({ item }) => <OrderCard order={item} />}
+        renderItem={({ item }) => <OrderCard order={item} destinations={shippingDestinations} />}
       />
     </SafeAreaView>
   );
@@ -212,6 +241,25 @@ const styles = StyleSheet.create({
   terminatedText: {
     ...typography.caption,
     color: colors.danger,
+    fontWeight: '600',
+  },
+  shippingBox: {
+    marginTop: spacing.md,
+    paddingTop: spacing.md,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+    gap: 4,
+  },
+  shippingRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  shippingLabel: {
+    ...typography.small,
+  },
+  shippingValue: {
+    ...typography.small,
+    color: colors.textPrimary,
     fontWeight: '600',
   },
 });

@@ -104,7 +104,49 @@ values
    'clothing',
    array['https://picsum.photos/seed/code-p014-a/900/1200', 'https://picsum.photos/seed/code-p014-b/900/1200', 'https://picsum.photos/seed/code-p014-c/900/1200'],
    48000, 29000, 40, '₸', array['S', 'M', 'L', 'XL'], 'new', 'Yeoju Premium Outlet', 'Ёджу, Южная Корея',
-   now() - interval '2 days', now() + interval '1 day', true, true)
+   now() - interval '2 days', now() + interval '1 day', true, true),
+
+  ('p015', 'Nike', 'Кроссовки Dunk Low',
+   'Культовая модель Dunk Low, кожа и замша. Контрастные вставки, вафельная резиновая подошва.',
+   'shoes',
+   array['https://picsum.photos/seed/code-p015-a/900/1200', 'https://picsum.photos/seed/code-p015-b/900/1200', 'https://picsum.photos/seed/code-p015-c/900/1200'],
+   72000, 43000, 40, '₸', array['39', '40', '41', '42', '43', '44'], 'new', 'Yeoju Premium Outlet', 'Ёджу, Южная Корея',
+   now() - interval '1 day', now() + interval '16 hours', true, true),
+
+  ('p016', 'Adidas', 'Рюкзак спортивный Classic',
+   'Вместительный рюкзак с отделением для ноутбука и обуви. Плотный полиэстер, водоотталкивающая пропитка.',
+   'bags',
+   array['https://picsum.photos/seed/code-p016-a/900/1200', 'https://picsum.photos/seed/code-p016-b/900/1200', 'https://picsum.photos/seed/code-p016-c/900/1200'],
+   34000, 20000, 41, '₸', array['One size'], 'new', 'Busan Premium Outlet', 'Пусан, Южная Корея',
+   now() - interval '3 days', now() + interval '2 days', true, false),
+
+  ('p017', 'Lacoste', 'Сумка через плечо Croc',
+   'Компактная сумка-планшет из плотного нейлона с кожаными вставками и вышитым крокодилом.',
+   'bags',
+   array['https://picsum.photos/seed/code-p017-a/900/1200', 'https://picsum.photos/seed/code-p017-b/900/1200', 'https://picsum.photos/seed/code-p017-c/900/1200'],
+   46000, 28000, 39, '₸', array['One size'], 'excellent', 'Yeoju Premium Outlet', 'Ёджу, Южная Корея',
+   now() - interval '4 days', now() + interval '2 days', true, false),
+
+  ('p018', 'Tommy Hilfiger', 'Кроссовки низкие Retro',
+   'Ретро-силуэт на шнуровке, комбинация кожи и текстиля, фирменный флажок на язычке.',
+   'shoes',
+   array['https://picsum.photos/seed/code-p018-a/900/1200', 'https://picsum.photos/seed/code-p018-b/900/1200', 'https://picsum.photos/seed/code-p018-c/900/1200'],
+   56000, 33000, 41, '₸', array['40', '41', '42', '43', '44'], 'new', 'Paju Premium Outlet', 'Пхаджу, Южная Корея',
+   now() - interval '2 days', now() + interval '20 hours', true, false),
+
+  ('p019', 'Ralph Lauren', 'Свитшот Polo Bear',
+   'Плотный флисовый свитшот с вышитым мишкой Polo Bear на груди. Прямой крой, рибана на манжетах.',
+   'clothing',
+   array['https://picsum.photos/seed/code-p019-a/900/1200', 'https://picsum.photos/seed/code-p019-b/900/1200', 'https://picsum.photos/seed/code-p019-c/900/1200'],
+   64000, 38000, 41, '₸', array['S', 'M', 'L', 'XL'], 'new', 'Yeoju Premium Outlet', 'Ёджу, Южная Корея',
+   now() - interval '1 day', now() + interval '28 hours', true, false),
+
+  ('p020', 'New Balance', 'Шорты спортивные',
+   'Лёгкие тканые шорты для тренировок и повседневной носки. Сетчатая подкладка, боковые карманы на молнии.',
+   'clothing',
+   array['https://picsum.photos/seed/code-p020-a/900/1200', 'https://picsum.photos/seed/code-p020-b/900/1200', 'https://picsum.photos/seed/code-p020-c/900/1200'],
+   28000, 17000, 39, '₸', array['S', 'M', 'L', 'XL'], 'new', 'Busan Premium Outlet', 'Пусан, Южная Корея',
+   now() - interval '5 days', now() + interval '3 days', true, false)
 
 on conflict (id) do update set
   brand = excluded.brand,
@@ -123,3 +165,63 @@ on conflict (id) do update set
   expires_at = excluded.expires_at,
   is_available = excluded.is_available,
   is_featured = excluded.is_featured;
+
+-- ============================================================
+-- Сток по размерам. Ряд обязателен для каждого продаваемого размера —
+-- без него оформить заказ на этот размер нельзя (см. schema.sql,
+-- decrement_variant_stock). У p012 сток нулевой намеренно — товар помечен
+-- is_available = false, демонстрирует состояние «раскуплено».
+-- ============================================================
+insert into public.product_variants (product_id, size, stock) values
+  ('p001', 'S', 6), ('p001', 'M', 10), ('p001', 'L', 8), ('p001', 'XL', 4),
+  ('p002', 'M', 5), ('p002', 'L', 9), ('p002', 'XL', 7), ('p002', 'XXL', 3),
+  ('p003', 'S', 4), ('p003', 'M', 7), ('p003', 'L', 5),
+  ('p004', '40', 3), ('p004', '41', 6), ('p004', '42', 8), ('p004', '43', 5), ('p004', '44', 2),
+  ('p005', '38', 2), ('p005', '39', 5), ('p005', '40', 7), ('p005', '41', 6), ('p005', '42', 4), ('p005', '43', 2),
+  ('p006', 'One size', 10),
+  ('p007', 'One size', 6),
+  ('p008', 'One size', 15),
+  ('p009', 'One size', 12),
+  ('p010', 'S', 5), ('p010', 'M', 8), ('p010', 'L', 6), ('p010', 'XL', 3),
+  ('p011', '40', 3), ('p011', '41', 6), ('p011', '42', 8), ('p011', '43', 7), ('p011', '44', 4), ('p011', '45', 2),
+  ('p012', '40', 0), ('p012', '41', 0), ('p012', '42', 0), ('p012', '44', 0), ('p012', '45', 0),
+  ('p013', 'S', 6), ('p013', 'M', 9), ('p013', 'L', 7), ('p013', 'XL', 4),
+  ('p014', 'S', 5), ('p014', 'M', 8), ('p014', 'L', 6), ('p014', 'XL', 3),
+  ('p015', '39', 3), ('p015', '40', 6), ('p015', '41', 9), ('p015', '42', 8), ('p015', '43', 5), ('p015', '44', 2),
+  ('p016', 'One size', 14),
+  ('p017', 'One size', 5),
+  ('p018', '40', 4), ('p018', '41', 7), ('p018', '42', 6), ('p018', '43', 3), ('p018', '44', 2),
+  ('p019', 'S', 5), ('p019', 'M', 7), ('p019', 'L', 6), ('p019', 'XL', 3),
+  ('p020', 'S', 9), ('p020', 'M', 12), ('p020', 'L', 10), ('p020', 'XL', 6)
+on conflict (product_id, size) do update set stock = excluded.stock;
+
+-- ============================================================
+-- Справочник направлений доставки из Кореи. Стоимость и сроки — демо-оценки,
+-- перед реальным запуском согласуйте с логистическим партнёром (этап 9).
+-- ============================================================
+insert into public.shipping_destinations
+  (country_code, country_name, cost, currency, eta_min_days, eta_max_days, customs_note, is_active)
+values
+  ('KZ', 'Казахстан', 4900, '₸', 7, 12,
+   'Для физлиц действует порог беспошлинного ввоза для товаров личного пользования (уточняйте актуальный лимит на сайте ЕЭК/КГД РК) — при превышении взимается пошлина и НДС.',
+   true),
+  ('RU', 'Россия', 6900, '₸', 10, 16,
+   'Возможны таможенные пошлины при превышении лимита беспошлинного ввоза для физлиц — уточняйте актуальные пороги на сайте ФТС.',
+   true),
+  ('KG', 'Кыргызстан', 5900, '₸', 9, 15,
+   'Как член ЕАЭС применяются единые пороги беспошлинного ввоза ЕАЭС для физлиц.',
+   true),
+  ('UZ', 'Узбекистан', 7900, '₸', 12, 18,
+   'Узбекistan не входит в ЕАЭС — таможенное оформление и пошлины рассчитываются по национальному законодательству.',
+   true),
+  ('DE', 'Германия (пример: остальной мир)', 15900, '₸', 15, 25,
+   'Пошлины и НДС страны получателя оплачиваются покупателем при получении в соответствии с местным законодательством.',
+   true)
+on conflict (country_code) do update set
+  country_name = excluded.country_name,
+  cost = excluded.cost,
+  currency = excluded.currency,
+  eta_min_days = excluded.eta_min_days,
+  eta_max_days = excluded.eta_max_days,
+  customs_note = excluded.customs_note,
+  is_active = excluded.is_active;

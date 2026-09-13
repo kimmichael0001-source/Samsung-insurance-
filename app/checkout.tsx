@@ -1,13 +1,17 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
-import { FlatList, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image } from 'expo-image';
+import React, { useEffect, useState } from 'react';
+import { Alert, FlatList, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { ShippingOptionList } from '../src/components';
 import { demoUser } from '../src/data/user';
+import { AnalyticsEvents, track } from '../src/lib/analytics';
 import { useAppState } from '../src/store/AppStateContext';
+import type { ShippingSelection } from '../src/store/AppStateContext';
 import { colors, radius, spacing, typography } from '../src/theme';
-import type { CartItem, Order } from '../src/types';
+import type { CartItem, Order, ShippingDestination } from '../src/types';
 import { formatPrice } from '../src/utils';
 
 function pluralizeOrders(count: number): string {
@@ -18,18 +22,52 @@ function pluralizeOrders(count: number): string {
   return 'заявок';
 }
 
+function toSelection(destination: ShippingDestination): ShippingSelection {
+  return {
+    countryCode: destination.countryCode,
+    cost: destination.cost,
+    etaMinDays: destination.etaMinDays,
+    etaMaxDays: destination.etaMaxDays,
+  };
+}
+
 export default function CheckoutScreen() {
   const router = useRouter();
-  const { cartItems, cartTotal, checkoutCart } = useAppState();
+  const { cartItems, cartTotal, checkoutCart, shippingDestinations } = useAppState();
+  const [selectedDestination, setSelectedDestination] = useState<ShippingDestination | null>(null);
   const [createdOrders, setCreatedOrders] = useState<Order[] | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  useEffect(() => {
+    if (selectedDestination || shippingDestinations.length === 0) return;
+    setSelectedDestination(
+      shippingDestinations.find((destination) => destination.countryCode === 'KZ') ?? shippingDestinations[0],
+    );
+  }, [shippingDestinations, selectedDestination]);
+
+  useEffect(() => {
+    if (cartItems.length === 0) return;
+    track(AnalyticsEvents.BEGIN_CHECKOUT, { itemCount: cartItems.length, value: cartTotal });
+    // Fire once per visit to this screen with items in the cart.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleConfirm = async () => {
+    if (!selectedDestination) return;
+
     setIsSubmitting(true);
-    const orders = await checkoutCart();
-    setIsSubmitting(false);
-    if (orders.length > 0) {
-      setCreatedOrders(orders);
+    try {
+      const orders = await checkoutCart(toSelection(selectedDestination));
+      if (orders.length > 0) {
+        setCreatedOrders(orders);
+      }
+    } catch (error) {
+      Alert.alert(
+        'Не удалось оформить заказ',
+        error instanceof Error ? error.message : 'Попробуйте ещё раз чуть позже.',
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -81,6 +119,8 @@ export default function CheckoutScreen() {
     );
   }
 
+  const shippingCost = selectedDestination?.cost ?? 0;
+
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
       <View style={styles.header}>
@@ -91,7 +131,7 @@ export default function CheckoutScreen() {
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        <Text style={styles.sectionTitle}>Доставка</Text>
+        <Text style={styles.sectionTitle}>Получатель</Text>
         <View style={styles.addressCard}>
           <Ionicons name="location-outline" size={18} color={colors.textSecondary} />
           <View style={styles.addressTexts}>
@@ -102,6 +142,17 @@ export default function CheckoutScreen() {
             </Text>
           </View>
         </View>
+
+        <Text style={styles.sectionTitle}>Страна доставки</Text>
+        {shippingDestinations.length > 0 ? (
+          <ShippingOptionList
+            destinations={shippingDestinations}
+            selectedCountryCode={selectedDestination?.countryCode ?? null}
+            onSelect={setSelectedDestination}
+          />
+        ) : (
+          <Text style={styles.addressLine}>Загружаем варианты доставки…</Text>
+        )}
 
         <Text style={styles.sectionTitle}>Товары ({cartItems.length})</Text>
         <FlatList
@@ -122,13 +173,21 @@ export default function CheckoutScreen() {
 
       <View style={styles.footer}>
         <View style={styles.totalRow}>
+          <Text style={styles.totalLabel}>Товары</Text>
+          <Text style={styles.totalSubValue}>{formatPrice(cartTotal)}</Text>
+        </View>
+        <View style={styles.totalRow}>
+          <Text style={styles.totalLabel}>Доставка</Text>
+          <Text style={styles.totalSubValue}>{formatPrice(shippingCost)}</Text>
+        </View>
+        <View style={[styles.totalRow, styles.totalRowFinal]}>
           <Text style={styles.totalLabel}>Итого</Text>
-          <Text style={styles.totalValue}>{formatPrice(cartTotal)}</Text>
+          <Text style={styles.totalValue}>{formatPrice(cartTotal + shippingCost)}</Text>
         </View>
         <Pressable
-          style={[styles.primaryButton, isSubmitting && styles.primaryButtonDisabled]}
+          style={[styles.primaryButton, (isSubmitting || !selectedDestination) && styles.primaryButtonDisabled]}
           onPress={handleConfirm}
-          disabled={isSubmitting}
+          disabled={isSubmitting || !selectedDestination}
         >
           <Text style={styles.primaryButtonText}>{isSubmitting ? 'Оформляем…' : 'Подтвердить заказ'}</Text>
         </Pressable>
@@ -140,7 +199,7 @@ export default function CheckoutScreen() {
 function SummaryRow({ item }: { item: CartItem }) {
   return (
     <View style={styles.summaryRow}>
-      <Image source={{ uri: item.image }} style={styles.summaryImage} />
+      <Image source={{ uri: item.image }} style={styles.summaryImage} contentFit="cover" transition={150} />
       <View style={styles.summaryTexts}>
         <Text style={styles.summaryBrand}>{item.brand}</Text>
         <Text style={styles.summaryTitle} numberOfLines={1}>
@@ -262,11 +321,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: spacing.xs,
+  },
+  totalRowFinal: {
+    marginTop: spacing.xs,
     marginBottom: spacing.lg,
   },
   totalLabel: {
     ...typography.body,
     color: colors.textSecondary,
+  },
+  totalSubValue: {
+    ...typography.body,
   },
   totalValue: {
     ...typography.h2,
